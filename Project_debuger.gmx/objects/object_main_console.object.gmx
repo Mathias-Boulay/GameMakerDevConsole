@@ -29,6 +29,8 @@
 display_set_gui_maximise();
 
 Interact = false;
+Console_width = display_get_gui_width();
+Console_height = min(display_get_gui_height()/2,min(240,display_get_gui_height()));
 
 draw_colour = "";
 draw_alpha = "";
@@ -39,16 +41,19 @@ Force_debug_instances_visible = false;
 Force_all_instances_visible = false;
 Auto_destroy_instance_follower = true;
 
-Text_a = __spse_text_converter_to_sprite_index("Enable rectangle drawing");
-Text_b = __spse_text_converter_to_sprite_index("Force debug instances visible");
-Text_c = __spse_text_converter_to_sprite_index("Force all instances visible");
-Text_d = __spse_text_converter_to_sprite_index("Destroy instances popup when not alive");
-
 //Command interface part:
 Typed_text = "";
 Displayed_text = __spse_text_converter_to_sprite_index(Typed_text);
+
+history_index = -1
 for(i=0;i&lt;10;i+=1){
     Commands_history[i] = "";
+    }
+
+for(i=0;i&lt;10;i++){
+    Logs[i,0]= "";
+    Logs[i,1]= "";
+    ConvertedLogs[i] = __spse_text_converter_to_sprite_index(Logs[i,0]);
     }
     
 Available_keys = '!"#$%&amp;'+"'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ";
@@ -56,10 +61,43 @@ blink = true;
 blink_speed = (room_speed/2);
 alarm[11] = blink_speed;
 blink_position = __spse_string_size(Typed_text);
-history_index = -1
 
 
 
+
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Test event, I put things there whe I need to test out scripts:
+
+
+
+
+
+
+
+
+
+//__spse_logs_update(__spse_text_converter_to_sprite_index("Hello !"),"white");
 
 </string>
           </argument>
@@ -108,35 +146,9 @@ alarm[11] = blink_speed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Check if the mouse is trying to modify a setting:
-if (Interact){
-    if device_mouse_check_button_pressed(0,mb_left){
-        //Time to check !
-        //X axis:
-        if device_mouse_x_to_gui(0) &gt; 8 &amp;&amp; device_mouse_x_to_gui(0) &lt; 24{
-            //Y axis: No structure for easier readibility
-            if device_mouse_y_to_gui(0) &gt; 92 &amp;&amp; device_mouse_y_to_gui(0) &lt; 108{
-                //Auto destroy instance_follower if tracked instances not alive anymore
-                Auto_destroy_instance_follower = !Auto_destroy_instance_follower
-                }
-                
-            if device_mouse_y_to_gui(0) &gt; 72 &amp;&amp; device_mouse_y_to_gui(0) &lt; 88{
-                //Force all instances to be visible
-                Force_all_instances_visible = !Force_all_instances_visible;
-                }
-                
-            if device_mouse_y_to_gui(0) &gt; 52 &amp;&amp; device_mouse_y_to_gui(0) &lt; 68{
-                //Force debug instances to be visible
-                Force_debug_instances_visible = !Force_debug_instances_visible;
-                }
-            
-            if device_mouse_y_to_gui(0) &gt; 32 &amp;&amp; device_mouse_y_to_gui(0) &lt; 48{
-                //Enable the drawing of a rectangle on the tracked instance.
-                Rectangle_drawing = !Rectangle_drawing;
-                }
-            }
-        }
-    }
+            <string>///Update the gui size, in case of resize of in game graphics:
+Console_width = display_get_gui_width();
+Console_height = min(display_get_gui_height()/2,min(240,display_get_gui_height()));
 </string>
           </argument>
         </arguments>
@@ -204,22 +216,13 @@ if(Interact){   //It means we have to draw the gui
     
     //Background:
     draw_rectangle(0,0,
-                        display_get_gui_width(),
-                        110,
+                        Console_width,
+                        Console_height,
                         false
                         );
     
     draw_set_alpha(1);
     
-    draw_sprite(sprite_checkbox,Rectangle_drawing, 16, 40);
-    draw_sprite(sprite_checkbox,Force_debug_instances_visible, 16, 60);
-    draw_sprite(sprite_checkbox,Force_all_instances_visible, 16, 80);
-    draw_sprite(sprite_checkbox,Auto_destroy_instance_follower, 16, 100);
-    
-    __spse_draw_text_sprite_font(32, 40, Text_a);
-    __spse_draw_text_sprite_font(32, 60, Text_b);
-    __spse_draw_text_sprite_font(32, 80, Text_c);
-    __spse_draw_text_sprite_font(32, 100, Text_d);
     
     __spse_draw_text_sprite_font(32,16, Displayed_text);
     if (blink){
@@ -284,13 +287,15 @@ Interact = !Interact;
           <argument>
             <kind>1</kind>
             <string>///Update the string displayed on the screen
-if (string_count(chr(keyboard_key), Available_keys) and string_length(chr(keyboard_key)) == 1){
+if (string_count(keyboard_lastchar, Available_keys) and string_length(chr(keyboard_key)) == 1){
     blink = true;
     alarm[11] = blink_speed;
+    
     
     switch(keyboard_lastchar){
             
         default:
+            __spse_reset_history_index();
             Typed_text += keyboard_lastchar;
             break;
         }
@@ -301,6 +306,7 @@ if (string_count(chr(keyboard_key), Available_keys) and string_length(chr(keyboa
 if !keyboard_check(vk_control){
     switch(keyboard_key){
         case vk_backspace:
+            __spse_reset_history_index();
             if string_length(Typed_text) &lt;= 1{
                 Typed_text = "";
                 }
@@ -317,6 +323,12 @@ if !keyboard_check(vk_control){
             history_index = max(-1,history_index-1);
             break;
             
+        case vk_enter:
+            //We just have to execute the command, either from the Typed text, either from the Commands_history !
+            __spse_reset_history_index();
+            //Execute from the typed text !
+            break;
+            
         }
     }
     /*
@@ -325,8 +337,19 @@ else{
         //If you press the control key:
         }
     }*/
+keyboard_lastchar = "";
+
+if history_index = -1{
+    Displayed_text = __spse_text_converter_to_sprite_index(Typed_text);
+    }
+else{
+    Displayed_text = __spse_text_converter_to_sprite_index(Commands_history[history_index]);
+    }
+
     
-Displayed_text = __spse_text_converter_to_sprite_index(Typed_text);
+    
+    
+    
 </string>
           </argument>
         </arguments>

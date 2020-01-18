@@ -22,10 +22,15 @@
       <script>scripts\__spse_string_size.gml</script>
       <script>scripts\__spse_text_converter_to_sprite_index.gml</script>
       <script>scripts\__spse_draw_text_sprite_font.gml</script>
+      <script>scripts\__spse_draw_text_sprite_font_colored.gml</script>
       <script>scripts\__spse_draw_text_sprite_font_slow.gml</script>
+      <script>scripts\__spse_commands_history_update.gml</script>
+      <script>scripts\__spse_logs_update.gml</script>
+      <script>scripts\__spse_string_to_color.gml</script>
+      <script>scripts\__spse_show_logs.gml</script>
+      <script>scripts\__spse_reset_history_index.gml</script>
     </scripts>
   </scripts>
-  <fonts name="fonts"/>
   <objects name="objects">
     <objects name="Dummy_objects">
       <object>objects\object_dummy_red</object>
