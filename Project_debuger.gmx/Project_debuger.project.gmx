@@ -12,7 +12,6 @@
     <sprites name="Dummy_sprites">
       <sprite>sprites\sprite_red</sprite>
     </sprites>
-    <sprite>sprites\sprite_checkbox</sprite>
     <sprite>sprites\sprite_console_font</sprite>
   </sprites>
   <backgrounds name="background"/>
@@ -20,18 +19,22 @@
   <scripts name="scripts">
     <scripts name="SPSE_console">
       <scripts name="NotUser">
-        <script>scripts\__spse_string_size.gml</script>
-        <script>scripts\__spse_text_converter_to_sprite_index.gml</script>
-        <script>scripts\__spse_draw_text_sprite_font.gml</script>
-        <script>scripts\__spse_draw_text_sprite_font_colored.gml</script>
-        <script>scripts\__spse_draw_text_sprite_font_slow.gml</script>
         <script>scripts\__spse_commands_history_update.gml</script>
         <script>scripts\__spse_logs_update.gml</script>
-        <script>scripts\__spse_string_to_color.gml</script>
         <script>scripts\__spse_reset_history_index.gml</script>
-        <script>scripts\__spse_data_type_to_color.gml</script>
+        <scripts name="drawing related">
+          <script>scripts\__spse_string_size.gml</script>
+          <script>scripts\__spse_text_converter_to_sprite_index.gml</script>
+          <script>scripts\__spse_draw_text_sprite_font.gml</script>
+          <script>scripts\__spse_draw_text_sprite_font_colored.gml</script>
+          <script>scripts\__spse_draw_text_sprite_font_slow.gml</script>
+          <script>scripts\__spse_data_type_to_color.gml</script>
+          <script>scripts\__spse_string_to_color.gml</script>
+        </scripts>
       </scripts>
       <scripts name="User">
+        <script>scripts\console_create.gml</script>
+        <script>scripts\console_destroy.gml</script>
         <script>scripts\console_show_error.gml</script>
         <script>scripts\console_show_warning.gml</script>
         <script>scripts\console_show_debug.gml</script>
@@ -40,9 +43,6 @@
           <script>scripts\console_set_followers_persistence.gml</script>
           <script>scripts\console_set_debug_instance_visible.gml</script>
           <script>scripts\console_set_all_instance_visible.gml</script>
-        </scripts>
-        <scripts name="colored_data_types">
-          <script>scripts\console_set_real_color.gml</script>
         </scripts>
       </scripts>
     </scripts>
