@@ -311,7 +311,7 @@ draw_set_alpha(draw_alpha);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Draw the rectangle if the option is set to true
+            <string>///Draw the overlay if the option is set to true
 
 //Backup drawing settings to restore them.
 draw_color = draw_get_colour();
@@ -330,7 +330,7 @@ else{
 
 
 if instance_exists(Instance_to_track){
-    if (object_main_console.Rectangle_drawing){
+    if (object_main_console.Overlay_drawing){
         draw_rectangle(
                         Instance_to_track.bbox_left,
                         Instance_to_track.bbox_top,

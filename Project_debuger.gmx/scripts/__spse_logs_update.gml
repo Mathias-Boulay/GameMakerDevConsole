@@ -3,7 +3,7 @@
 //Developper, don't use this !
 
 //The script adds a text with the color to use. Can use only one line.
-for(i=array_height_2d(Logs);i>0;i--){
+for(i=array_height_2d(Logs)-2;i>=0;i--){
     Logs[i+1,0] = Logs[i,0];
     Logs[i+1,1] = Logs[i,1];
     ConvertedLogs[i+1] = ConvertedLogs[i]

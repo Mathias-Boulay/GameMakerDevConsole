@@ -25,18 +25,18 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Initialize the gui size: Must match the windows size since it's usually greater than the application surface size.
+            <string>///Initialize many things;
 display_set_gui_maximise();
 
 Interact = false;
 Console_width = display_get_gui_width();
-Console_height = min(display_get_gui_height()/2,min(240,display_get_gui_height()));
+Console_height = max(display_get_gui_height()/2,min(240,display_get_gui_height()));
 
 draw_colour = "";
 draw_alpha = "";
 draw_shader = "";
 
-Rectangle_drawing = true;
+Overlay_drawing = true;
 Force_debug_instances_visible = false;
 Force_all_instances_visible = false;
 Auto_destroy_instance_follower = true;
@@ -61,6 +61,20 @@ blink = true;
 blink_speed = (room_speed/2);
 alarm[11] = blink_speed;
 blink_position = __spse_string_size(Typed_text);
+
+
+//Color coded data types:
+RealColor = c_white;
+StringColor = c_white;
+ArrayColor = c_white;
+Int32Color = c_white;
+Int64Color = c_white;
+PointerColor = c_white;
+UndefinedColor = c_white;
+NullColor = c_white;
+Vec3Color = c_white;
+Vec4Color = c_white;
+UnknownColor = c_white;
 
 
 
@@ -90,6 +104,12 @@ blink_position = __spse_string_size(Typed_text);
             <string>///Test event, I put things there whe I need to test out scripts:
 
 
+__spse_logs_update("Hello World !","red");
+__spse_logs_update("Hello World 2 !","red");
+__spse_logs_update("Hello World  3!","red");
+__spse_logs_update("Hello World   4!","red");
+__spse_logs_update("Hello World    5!","red");
+__spse_logs_update("Failed to change overlay drawing state","yellow");
 
 
 
@@ -223,7 +243,18 @@ if(Interact){   //It means we have to draw the gui
     
     draw_set_alpha(1);
     
+    //Time to draw the logs !
+    var tmp_counter = 0;
+    var tmp_position = Console_height-8;
+    repeat(min(floor((Console_height-8)/16),array_height_2d(Logs))){
+        __spse_draw_text_sprite_font_colored(16,tmp_position,ConvertedLogs[tmp_counter],Logs[tmp_counter,1]);
+        tmp_position-=16;
+        tmp_counter+=1;                                 
+        }
+      
+     
     
+    //Draw the command text section.
     __spse_draw_text_sprite_font(32,16, Displayed_text);
     if (blink){
         draw_line_colour(__spse_string_size(Typed_text)+28,11,__spse_string_size(Typed_text)+28,19,c_black,c_black);
@@ -287,7 +318,7 @@ Interact = !Interact;
           <argument>
             <kind>1</kind>
             <string>///Update the string displayed on the screen
-if (string_count(keyboard_lastchar, Available_keys) and string_length(chr(keyboard_key)) == 1){
+if (string_count(keyboard_lastchar, Available_keys) and string_length(keyboard_lastchar) == 1){
     blink = true;
     alarm[11] = blink_speed;
     
