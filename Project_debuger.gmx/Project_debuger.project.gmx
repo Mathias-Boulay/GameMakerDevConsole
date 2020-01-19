@@ -31,6 +31,7 @@
           <script>scripts\__spse_data_type_to_color.gml</script>
           <script>scripts\__spse_string_to_color.gml</script>
         </scripts>
+        <script>scripts\__spse_execute_command.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_create.gml</script>

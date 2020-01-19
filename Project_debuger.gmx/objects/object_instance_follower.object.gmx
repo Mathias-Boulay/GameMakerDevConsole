@@ -128,18 +128,41 @@ if instance_exists(Instance_to_track){
         
     //Second step: Remove empty intermediate spaces:
     for(i=1;i&lt;array_height_2d(Variables)-1;i++){
-        if (Variables[i,0] != "") &amp;&amp; (Variables[i-1,0] = ""){
-            //Transfer the variable name 
-            Variables[i-1,0] = Variables[i,0];
-            VariablesName[i-1] = VariablesName[i];
-            //Flush the rest, will be updated.
-            Variables[i,0] = "";
-            Variables[i,1] = "";
-            VariablesName[i] = "";
-            VariablesValue[i] = "";
-            
+        for(j=0;j&gt;-1;j++){
+            if (Variables[i-j,0] != "") &amp;&amp; (Variables[i-1-j,0] = ""){
+                //Transfer the variable name 
+                Variables[i-1-j,0] = Variables[i-j,0];
+                VariablesName[i-j-1] = VariablesName[i-j];
+                //Flush the rest, will be updated.
+                Variables[i-j,0] = "";
+                Variables[i-j,1] = "";
+                VariablesName[i-j] = "";
+                VariablesValue[i-j] = "";
+                
+                }
+            else{
+                break;
+                i+=j; //Jump through the void created by the for loop.
+                }
             }
         
+        }
+        
+    //Step 3: Update existing variables
+    for(i=1;i&lt;array_height_2d(Variables)-1;i++){
+        if Variables[i,0] != ""{
+            //Just check if there is the converted name.
+            if VariablesName[i] = ""{
+                VariablesName[i] = __spse_text_converter_to_sprite_index(Variables[i,0]);
+                }
+            if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
+                Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
+                VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
+                }
+            }
+        else{
+            break;
+            }
         }
         
     }
@@ -264,18 +287,18 @@ draw_set_alpha(1);
 
 
 //Time to restore:
-if (hover){
+if (hover){ //This test avoids breakling the draw pipeline if the color is already the one we want.
     draw_set_color(c_white);
     }
 
 //Some text:
-__spse_draw_text_sprite_font_slow(box_left+6,yy,Instance_name);
+__spse_draw_text_sprite_font(box_left+6,yy,Instance_name);
 
 //Time for variables to shine !
 for(i=0;i&lt;array_height_2d(Variables);i++){
     if Variables[i,0] != ""{
-        __spse_draw_text_sprite_font_slow(xx - __spse_string_size(Variables[i,0])/2, yy + ((i+1)*10), Variables[i,0]);
-        __spse_draw_text_sprite_font_slow(xx + __spse_string_size(Variables[i,0])/2, yy + ((i+1)*10), Variables[i,1]);
+        __spse_draw_text_sprite_font(xx - __spse_string_size(VariablesName[i])/2, yy + ((i+1)*10), VariablesName[i]);
+        __spse_draw_text_sprite_font(xx + __spse_string_size(VariablesValue[i])/2, yy + ((i+1)*10), VariablesValue[i]);
         }
     }
 

@@ -358,6 +358,7 @@ if !keyboard_check(vk_control){
             //We just have to execute the command, either from the Typed text, either from the Commands_history !
             __spse_reset_history_index();
             //Execute from the typed text !
+            __spse_execute_command(Typed_text);
             break;
             
         }
