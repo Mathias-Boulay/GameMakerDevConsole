@@ -27,7 +27,9 @@
             <kind>1</kind>
             <string>///Initialize
 Instance_to_track = "";
+Instance_string_name = ""; //Unconverted: used for checks
 Instance_name = ""; //Converted
+
 
 //Serves as pre-allocation of memory.
 for(i=0;i&lt;10;i++){

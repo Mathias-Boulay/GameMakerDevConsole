@@ -22,6 +22,7 @@
         <script>scripts\__spse_commands_history_update.gml</script>
         <script>scripts\__spse_logs_update.gml</script>
         <script>scripts\__spse_reset_history_index.gml</script>
+        <script>scripts\__spse_execute_command.gml</script>
         <scripts name="drawing related">
           <script>scripts\__spse_string_size.gml</script>
           <script>scripts\__spse_text_converter_to_sprite_index.gml</script>
@@ -31,14 +32,15 @@
           <script>scripts\__spse_data_type_to_color.gml</script>
           <script>scripts\__spse_string_to_color.gml</script>
         </scripts>
-        <script>scripts\__spse_execute_command.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_create.gml</script>
         <script>scripts\console_destroy.gml</script>
-        <script>scripts\console_show_error.gml</script>
-        <script>scripts\console_show_warning.gml</script>
-        <script>scripts\console_show_debug.gml</script>
+        <scripts name="Logs">
+          <script>scripts\console_show_error.gml</script>
+          <script>scripts\console_show_warning.gml</script>
+          <script>scripts\console_show_debug.gml</script>
+        </scripts>
         <scripts name="settings">
           <script>scripts\console_set_overlay_drawing.gml</script>
           <script>scripts\console_set_followers_persistence.gml</script>
