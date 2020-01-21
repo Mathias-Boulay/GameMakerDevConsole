@@ -62,7 +62,7 @@ Available_keys = '!"#$%&amp;'+"'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQ
 blink = true;
 blink_speed = (room_speed/2);
 alarm[11] = blink_speed;
-blink_position = 0;
+blink_position = 1;
 
 
 //Color coded data types:
@@ -385,17 +385,19 @@ if Interact{
                 blink_position+=1;
                 break;
             }
-            
-        blink_position = __spse_string_size(Typed_text);   
+               
         }
         
         
     if !keyboard_check(vk_control){
         switch(keyboard_key){
             case vk_backspace:
+                blink = true;
+                alarm[11] = blink_speed;
+                
                 __spse_reset_history_index();
-                Typed_text = string_delete(Typed_text,blink_position-1,1);
-                blink_position = max(blink_position-1,0);
+                Typed_text = string_delete(Typed_text,blink_position,1);
+                blink_position = max(blink_position-1,1);
                 break;
                 
             case vk_up:
@@ -406,6 +408,16 @@ if Interact{
             case vk_down:
                 history_index = max(-1,history_index-1);
                 break;
+                
+            case vk_left:
+                blink_position = max(blink_position-1,1);
+                break;
+                
+            case vk_right:
+                blink_position = max(blink_position+1,string_length(Displayed_text));
+                break;
+                
+            
                 
             case vk_enter:
                 //We just have to execute the command, either from the Typed text, either from the Commands_history !
