@@ -10,7 +10,7 @@ if string_replace_all(String," ","") != ""{ //If there arn't only spaces
 //Clear the display output:
 __spse_commands_history_update();
 
-while(string_char_at(String,1) = " "){String = string_delete(String,1,1);} //Remove all initial and accidental spaces.
+while(string_char_at(String,1) = " "){String = string_delete(String,1,1);} //Remove all initial/accidental spaces.
 
     var Command = string_copy(String,1,string_pos(" ",String)-1); //Store the command
     String = string_delete(String,1,string_pos(" ",String)); 

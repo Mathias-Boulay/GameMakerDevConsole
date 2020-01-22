@@ -26,11 +26,11 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize many things;
-display_set_gui_maximise();
-
 Interact = false;
 Console_width = display_get_gui_width();
 Console_height = max(display_get_gui_height()/2,min(240,display_get_gui_height()));
+display_set_gui_maximise();
+
 
 draw_colour = "";
 draw_alpha = "";
@@ -170,7 +170,9 @@ alarm[11] = blink_speed;
             <kind>1</kind>
             <string>///Update the gui size, check if there are dead instances:
 Console_width = display_get_gui_width();
-Console_height = min(display_get_gui_height()/2,min(240,display_get_gui_height()));
+Console_height = min(floor(display_get_gui_height()/2),min(240,display_get_gui_height()));
+//display_set_gui_maximise();
+
 
 //Check dead instances.
 for(i=0;i&lt;array_length_1d(Tracked_instances);i+=1){
@@ -309,7 +311,7 @@ if(Interact){   //It means we have to draw the gui
     //Draw the command text section.
     __spse_draw_text_sprite_font(32,16, Displayed_text);
     if (blink){
-        draw_line_colour(__spse_string_size(Displayed_text)+28,11,__spse_string_size(Displayed_text)+28,19,c_black,c_black);
+        draw_line_colour(((blink_position-1)*8)+28,11,((blink_position-1)*8)+28,19,c_black,c_black);
         }
 
     
@@ -371,11 +373,10 @@ Interact = !Interact;
             <kind>1</kind>
             <string>///Update the string displayed on the screen
 if Interact{
-
+    blink = true;
+    alarm[11] = blink_speed;
+    
     if (string_count(keyboard_lastchar, Available_keys) and string_length(keyboard_lastchar) == 1){
-        blink = true;
-        alarm[11] = blink_speed;
-        
         
         switch(keyboard_lastchar){
                 
@@ -390,50 +391,61 @@ if Interact{
         
         
     if !keyboard_check(vk_control){
-        switch(keyboard_key){
-            case vk_backspace:
-                blink = true;
-                alarm[11] = blink_speed;
+        if !keyboard_check(vk_shift){
+        
+            switch(keyboard_key){
+                case vk_backspace:
+                    __spse_reset_history_index();
+                    Typed_text = string_delete(Typed_text,blink_position,1);
+                    blink_position = max(blink_position-1,1);
+                    break;
+                    
+                case vk_up:
+                    history_index = min(array_length_1d(Commands_history)-1,history_index+1);
+                    if Commands_history[history_index] != ""{
+                        blink_position = string_length(Commands_history[history_index])+1;
+                        }
+                    else{
+                        history_index-=1;
+                        }
+                    break;
+                    
+                case vk_down:
+                    history_index = max(-1,history_index-1);
+                    if history_index = -1{ //Change the blink position relative to the history index status. -1 can (in theory) only be acheived through decreasing with this key.
+                        blink_position = string_length(Typed_text)+1;
+                        }
+                    else{
+                        blink_position = string_length(Commands_history[history_index])+1;
+                        }
+                    break;
+                    
+                case vk_left:
+                    blink_position = max(blink_position-1,1);
+                    break;
+                    
+                case vk_right:
+                    if history_index = -1{ //Change the blink position relative to the history index status. -1 can (in theory) only be acheived through decreasing with this key.
+                        blink_position = min(blink_position+1,string_length(Typed_text)+1 );
+                        }
+                    else{
+                        blink_position = min(blink_position+1,string_length(Commands_history[history_index])+1);
+                        }
+                    break;
+                    
                 
-                __spse_reset_history_index();
-                Typed_text = string_delete(Typed_text,blink_position,1);
-                blink_position = max(blink_position-1,1);
-                break;
-                
-            case vk_up:
-                history_index = min(array_length_1d(Commands_history)-1,history_index+1);
-                
-                break;
-                
-            case vk_down:
-                history_index = max(-1,history_index-1);
-                break;
-                
-            case vk_left:
-                blink_position = max(blink_position-1,1);
-                break;
-                
-            case vk_right:
-                blink_position = max(blink_position+1,string_length(Displayed_text));
-                break;
-                
-            
-                
-            case vk_enter:
-                //We just have to execute the command, either from the Typed text, either from the Commands_history !
-                __spse_reset_history_index();
-                //Execute from the typed text !
-                __spse_execute_command(Typed_text);
-                break;
-                
+                    
+                case vk_enter:
+                    //We just have to execute the command, either from the Typed text, either from the Commands_history !
+                    __spse_reset_history_index();
+                    //Execute from the typed text !
+                    __spse_execute_command(Typed_text);
+                    break;
+                    
+                }
             }
         }
-        /*
-    else{
-        switch(keyboard_key){
-            //If you press the control key:
-            }
-        }*/
+        
     keyboard_lastchar = "";
     
     if history_index = -1{
