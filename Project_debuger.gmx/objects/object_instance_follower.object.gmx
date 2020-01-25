@@ -201,9 +201,19 @@ else{
           <argument>
             <kind>1</kind>
             <string>///We remove the focus.
-focus = false;
-mx = 0;
-my = 0;
+if focus{
+    focus = false;
+    mx = 0;
+    my = 0;
+    
+    if device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
+        //The mouse is within the range of the suppressor:
+        __spse_tracked_instance_flush(Instance_to_track);
+        instance_destroy();
+        
+        }
+    
+    }
 </string>
           </argument>
         </arguments>
@@ -257,6 +267,38 @@ if object_main_console.Force_all_instances_visible{
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///Draw a red rounded rectangle with a cross if you have the focus.
+//Serves to destroy instances.
+if focus{
+    draw_set_colour(c_red);
+    draw_roundrect(display_get_gui_width()/2-15,display_get_gui_height()-45,display_get_gui_width()/2+15,display_get_gui_height()-15,false);
+    //draw_circle(display_get_gui_width()/2,display_get_gui_height()-30,15,false);
+    
+    draw_set_color(c_white);
+    draw_line(display_get_gui_width()/2-10,display_get_gui_height()-40,display_get_gui_width()/2+10,display_get_gui_height()-20);
+    draw_line(display_get_gui_width()/2-10,display_get_gui_height()-20,display_get_gui_width()/2+10,display_get_gui_height()-40);
+    
+    }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///Draw itself.
 //I want a semi white rounded rectangle:
 
@@ -269,7 +311,12 @@ draw_shader = shader_current();
 shader_reset();
 draw_set_alpha(0.4);
 if (hover){
-    draw_set_color(c_lime);
+    if (focus) &amp;&amp; device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
+        draw_set_colour(c_red);
+        }
+    else{
+        draw_set_color(c_lime);
+        }
     }
 else{
     draw_set_color(c_white);
