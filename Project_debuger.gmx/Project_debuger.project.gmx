@@ -35,7 +35,7 @@
         <script>scripts\__spse_tracked_instance_flush.gml</script>
       </scripts>
       <scripts name="User">
-        <script>scripts\console_create.gml</script>
+        <script>scripts\console_init.gml</script>
         <script>scripts\console_destroy.gml</script>
         <scripts name="Logs">
           <script>scripts\console_show_error.gml</script>
@@ -49,6 +49,9 @@
           <script>scripts\console_set_all_instance_visible.gml</script>
         </scripts>
         <script>scripts\console_count.gml</script>
+        <script>scripts\console_create.gml</script>
+        <script>scripts\console_kill.gml</script>
+        <script>scripts\console_watch.gml</script>
       </scripts>
     </scripts>
   </scripts>
