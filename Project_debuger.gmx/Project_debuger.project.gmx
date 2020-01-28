@@ -19,10 +19,6 @@
   <scripts name="scripts">
     <scripts name="SPSE_console">
       <scripts name="NotUser">
-        <script>scripts\__spse_commands_history_update.gml</script>
-        <script>scripts\__spse_logs_update.gml</script>
-        <script>scripts\__spse_reset_history_index.gml</script>
-        <script>scripts\__spse_execute_command.gml</script>
         <scripts name="drawing related">
           <script>scripts\__spse_string_size.gml</script>
           <script>scripts\__spse_text_converter_to_sprite_index.gml</script>
@@ -31,8 +27,14 @@
           <script>scripts\__spse_draw_text_sprite_font_slow.gml</script>
           <script>scripts\__spse_data_type_to_color.gml</script>
           <script>scripts\__spse_string_to_color.gml</script>
+          <script>scripts\__spse_watch_add.gml</script>
         </scripts>
+        <script>scripts\__spse_commands_history_update.gml</script>
+        <script>scripts\__spse_logs_update.gml</script>
+        <script>scripts\__spse_reset_history_index.gml</script>
+        <script>scripts\__spse_execute_command.gml</script>
         <script>scripts\__spse_tracked_instance_flush.gml</script>
+        <script>scripts\__spse_is_scope_global.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_init.gml</script>

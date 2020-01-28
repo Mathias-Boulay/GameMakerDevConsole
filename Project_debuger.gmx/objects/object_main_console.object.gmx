@@ -192,8 +192,9 @@ for(i=1;i&lt;array_height_2d(Tracked_instances)-1;i++){
             Variables[i-j] = "";
             }
         else{
-            break;
+            
             i+=j; //Jump through the void created by the for loop.
+            break;
             }
         }
     
