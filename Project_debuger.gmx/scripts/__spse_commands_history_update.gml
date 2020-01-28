@@ -10,6 +10,7 @@ Commands_history[0] = Typed_text;
 //Clear what the user typed.
 Typed_text = "";
 Displayed_text = "";
+blink_position = 1;
 
 }
     

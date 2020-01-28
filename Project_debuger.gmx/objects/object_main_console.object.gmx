@@ -397,7 +397,7 @@ if Interact{
             switch(keyboard_key){
                 case vk_backspace:
                     __spse_reset_history_index();
-                    Typed_text = string_delete(Typed_text,blink_position,1);
+                    Typed_text = string_delete(Typed_text,blink_position-1,1);
                     blink_position = max(blink_position-1,1);
                     break;
                     
