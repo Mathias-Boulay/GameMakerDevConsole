@@ -29,7 +29,7 @@ with(object_instance_follower){ //We add the variable if not already there
     if Instance_string_name = Tracked_object{ //Cela veut dire que l'on traque l'instance
         if variable_instance_exists(Instance_to_track, Variable_to_watch){
             
-            for(u=0;i<array_height_2d(Variables);u+=1){
+            for(u=0;u<array_height_2d(Variables);u+=1){
                 if Variables[u,0] = Variable_to_watch{
                     break;
                     }

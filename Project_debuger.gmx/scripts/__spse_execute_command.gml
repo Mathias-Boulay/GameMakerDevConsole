@@ -18,9 +18,12 @@ while(string_char_at(String,1) = " "){String = string_delete(String,1,1);} //Rem
     var tmp_counter = 0; 
     var Script; //The asset found within the resources tree.
     
-    for(i=0;i<15;i++){
-        parameters[i] = "";
+    repeat(15){
+        parameters[tmp_counter] = "";
+        tmp_counter += 1;
         }
+    tmp_counter = 0;
+    
     
     
     while(String != ""){

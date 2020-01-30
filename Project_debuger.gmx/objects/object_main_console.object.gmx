@@ -235,6 +235,7 @@ if (mouse_collision != noone){
             This_object.Instance_to_track = mouse_collision;  //This is the instance specific ID
             This_object.Instance_name = __spse_text_converter_to_sprite_index(object_get_name(mouse_collision.object_index));
             This_object.Instance_string_name = object_get_name(mouse_collision.object_index);
+            break;
             }
         else{
             if mouse_collision = Tracked_instances[i]{ //We found the same instance already being tracked !
