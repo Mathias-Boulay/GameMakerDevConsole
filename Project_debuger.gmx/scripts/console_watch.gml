@@ -56,7 +56,7 @@ if __spse_is_scope_global(argument0){
     //It means we have to check every instance of the object.
     with(asset_get_index(Tracked_object)){
         //We create an instance follower and affects it your variable.
-        for(u=0;w<array_length_1d(object_main_console.Tracked_instances);u+=1){
+        for(u=0;u<array_length_1d(object_main_console.Tracked_instances);u+=1){
             if object_main_console.Tracked_instances[u] = id{
                 break;
                 }

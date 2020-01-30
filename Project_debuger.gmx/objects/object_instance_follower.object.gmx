@@ -151,7 +151,7 @@ if instance_exists(Instance_to_track){
         }
         
     //Step 3: Update existing variables
-    for(i=1;i&lt;array_height_2d(Variables)-1;i++){
+    for(i=0;i&lt;array_height_2d(Variables);i++){
         if Variables[i,0] != ""{
             //Just check if there is the converted name.
             if VariablesName[i] = ""{
@@ -368,7 +368,7 @@ __spse_draw_text_sprite_font(box_left+6,yy,Instance_name);
 for(i=0;i&lt;array_height_2d(Variables);i++){
     if Variables[i,0] != ""{
         __spse_draw_text_sprite_font(xx - __spse_string_size(VariablesName[i])/2, yy + ((i+1)*10), VariablesName[i]);
-        __spse_draw_text_sprite_font(xx + __spse_string_size(VariablesValue[i])/2, yy + ((i+1)*10), VariablesValue[i]);
+        __spse_draw_text_sprite_font(xx + 20 + __spse_string_size(VariablesValue[i])/2, yy + ((i+1)*10), VariablesValue[i]);
         }
     }
 
