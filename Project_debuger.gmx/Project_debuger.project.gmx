@@ -32,6 +32,7 @@
         <script>scripts\__spse_execute_command.gml</script>
         <script>scripts\__spse_tracked_instance_flush.gml</script>
         <script>scripts\__spse_is_scope_global.gml</script>
+        <script>scripts\__spse_typeof.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_init.gml</script>
