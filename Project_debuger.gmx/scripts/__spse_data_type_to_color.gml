@@ -2,39 +2,40 @@
 //This script will return a color depending of the type of the variable.
 //This script assumes that the variable exists...
 with(object_main_console){
-    switch(typeof(argument0)){
+
+    if is_undefined(variable_instance_get(id,argument0)){
+        return UndefinedColor;
+        }
+    
+    if is_string(variable_instance_get(id,argument0)){
+        return StringColor;
+        }
         
-        case "number":
-            return RealColor;
-            
-        case "string":
-            return StringColor;
-            
-        case "array":
-            return ArrayColor;
-            
-        case "int32":
-            return Int32Color;
-            
-        case "int64":
-            return Int64Color;
-            
-        case "ptr": //This means a pointer
-            return PointerColor;
-            
-        case "undefined": // ~ var tmp;
-            return UndefinedColor;
+    if is_ptr(variable_instance_get(id,argument0)){
+        return PointerColor;
+        }
         
-        case "null": //Shouldn't be seen !
-            return NullColor;
+    if is_vec3(variable_instance_get(id,argument0)){
+        return Vec3Color;
+        }
         
-        case "vec3": //Meh, pretty much useless in 2d projects...
-            return Vec3Color;
-            
-        case "vec4": //Meh, pretty much useless in 2d projects...
-            return Vec4Color;
-            
-        case "unknown": //Your RAM stick gonna die, buddy.
-            return UnknownColor;
+    if is_vec4(variable_instance_get(id,argument0)){
+        return Vec4Color;
+        }
+    
+    if is_array(variable_instance_get(id,argument0)){
+        return ArrayColor;
+        }
+        
+    if is_int32(variable_instance_get(id,argument0)){
+        return Int32Color;
+        }
+    
+    if is_int64(variable_instance_get(id,argument0)){
+        return Int64Color;
+        }
+        
+    if is_real(variable_instance_get(id,argument0)){
+        return RealColor;
         }
     }
