@@ -64,6 +64,8 @@ if __spse_is_scope_global(argument0){
             
         if u = array_length_1d(object_main_console.Tracked_instances){
             //The it means the id of this instance isn't tracked !
+            object_main_console.Tracked_instances[u] = id;
+            
             var This_instance_follower;
                 This_instance_follower = instance_create(0,0,object_instance_follower);
                 
