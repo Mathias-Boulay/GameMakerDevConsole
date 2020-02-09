@@ -33,6 +33,7 @@
         <script>scripts\__spse_tracked_instance_flush.gml</script>
         <script>scripts\__spse_is_scope_global.gml</script>
         <script>scripts\__spse_typeof.gml</script>
+        <script>scripts\__spse_transform_argument_type.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_init.gml</script>
@@ -59,6 +60,7 @@
   <objects name="objects">
     <objects name="Dummy_objects">
       <object>objects\object_dummy_red</object>
+      <object>objects\object_dummy_red_2</object>
     </objects>
     <object>objects\object_main_console</object>
     <object>objects\object_instance_follower</object>

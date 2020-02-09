@@ -14,7 +14,7 @@ else{
     //Count the instances of the given object
     var Object = asset_get_index(argument0);
     var Object_count;
-    if Object = -1{
+    if Object != -1{
         Object_count = instance_number(Object);
         __spse_logs_update(string(Object_count)+" instances found.","white");
         return Object_count;

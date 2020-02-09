@@ -4,7 +4,7 @@
 
 //Verification:
 if variable_instance_exists(id,argument0){
-    return "none";
+    return "None";
     }
 
 if is_undefined(variable_instance_get(id,argument0)){
