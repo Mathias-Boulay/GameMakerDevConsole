@@ -54,6 +54,7 @@
         <script>scripts\console_kill.gml</script>
         <script>scripts\console_watch.gml</script>
         <script>scripts\console_set.gml</script>
+        <script>scripts\console_track.gml</script>
       </scripts>
     </scripts>
   </scripts>

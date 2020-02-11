@@ -55,26 +55,28 @@ with(object_instance_follower){ //We add the variable if not already there
 if __spse_is_scope_global(argument0){
     //It means we have to check every instance of the object.
     with(asset_get_index(Tracked_object)){
-        //We create an instance follower and affects it your variable.
-        for(u=0;u<array_length_1d(object_main_console.Tracked_instances);u+=1){
-            if object_main_console.Tracked_instances[u] = id{
-                break;
+        if(object_get_name(object_index) = Tracked_object){
+            //We create an instance follower and affects it your variable.
+            for(u=0;u<array_length_1d(object_main_console.Tracked_instances);u+=1){
+                if object_main_console.Tracked_instances[u] = id{
+                    break;
+                    }
                 }
-            }
-            
-        if u = array_length_1d(object_main_console.Tracked_instances){
-            //The it means the id of this instance isn't tracked !
-            object_main_console.Tracked_instances[u] = id;
-            
-            var This_instance_follower;
-                This_instance_follower = instance_create(0,0,object_instance_follower);
                 
-                This_instance_follower.Instance_to_track = id;
-                This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(Tracked_object);
-                This_instance_follower.Instance_string_name = Tracked_object;
+            if u = array_length_1d(object_main_console.Tracked_instances){
+                //The it means the id of this instance isn't tracked !
+                object_main_console.Tracked_instances[u] = id;
                 
-                This_instance_follower.Variables[0,0] = Variable_to_watch;
-                This_instance_follower.VariablesName[0] = __spse_text_converter_to_sprite_index(Variable_to_watch);
+                var This_instance_follower;
+                    This_instance_follower = instance_create(0,0,object_instance_follower);
+                    
+                    This_instance_follower.Instance_to_track = id;
+                    This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(Tracked_object);
+                    This_instance_follower.Instance_string_name = Tracked_object;
+                    
+                    This_instance_follower.Variables[0,0] = Variable_to_watch;
+                    This_instance_follower.VariablesName[0] = __spse_text_converter_to_sprite_index(Variable_to_watch);
+                }
             }
         
         }
