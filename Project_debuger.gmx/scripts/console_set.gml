@@ -19,14 +19,15 @@ if !__spse_is_scope_global(argument0){
     if instance_exists(asset_get_index(Object)){
         var Counter = 0;
         with(asset_get_index(Object)){
-        
-            if variable_instance_exists(id,Variable){ //There isn't any check for the array type yet, meaning I can erase a fucking bunch of values.
-                //On prévient le developpeur s'il commence à faire bordel.
-                if __spse_typeof(Variable) = "Array"{
-                    __spse_logs_update("Overwriting an array...","yellow"); 
+            if object_get_name(object_index) = Object{
+                if variable_instance_exists(id,Variable){ //There isn't any check for the array type yet, meaning I can erase a fucking bunch of values.
+                    //On prévient le developpeur s'il commence à faire bordel.
+                    if __spse_typeof(Variable) = "Array"{
+                        __spse_logs_update("Overwriting an array...","yellow"); 
+                        }
+                    variable_instance_set(id,Variable,Value);
+                    Counter += 1;
                     }
-                variable_instance_set(id,Variable,Value);
-                Counter += 1;
                 }
             }
         __spse_logs_update(string(Counter) + " instances variable (" + Variable + ") have been set to " + string(Value),"white");

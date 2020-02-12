@@ -24,7 +24,7 @@ if asset_get_index(Tracked_object) = -1{
     exit;
     }
 
-//ALready tracked instances there:
+//Already tracked instances there:
 with(object_instance_follower){ //We add the variable if not already there
     if Instance_string_name = Tracked_object{ //Cela veut dire que l'on traque l'instance
         if variable_instance_exists(Instance_to_track, Variable_to_watch){
@@ -52,7 +52,7 @@ with(object_instance_follower){ //We add the variable if not already there
     }    
     
 //Actives instances that weren't tracked at this time.
-if __spse_is_scope_global(argument0){
+if Scope{
     //It means we have to check every instance of the object.
     with(asset_get_index(Tracked_object)){
         if(object_get_name(object_index) = Tracked_object){

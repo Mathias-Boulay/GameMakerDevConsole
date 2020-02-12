@@ -30,6 +30,8 @@ Instance_to_track = "";
 Instance_string_name = ""; //Unconverted: used for checks
 Instance_name = ""; //Converted
 
+STATE = "WATCH";
+
 
 //Serves as pre-allocation of memory.
 for(i=0;i&lt;10;i++){
@@ -76,7 +78,7 @@ box_bottom = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update position and bounding boxes
+            <string>///Update variobles, position and bounding boxes
 
 //Mouse sync:
 if device_mouse_x_to_gui(0) &gt; box_left &amp;&amp; device_mouse_x_to_gui(0) &lt; box_right &amp;&amp; device_mouse_y_to_gui(0) &gt; box_top &amp;&amp; device_mouse_y_to_gui(0) &lt; box_bottom{
@@ -117,55 +119,92 @@ box_bottom = yy + 7;
     
 //UPDATE VARIABLES:
 if instance_exists(Instance_to_track){
-    //First step: Flush variables that don't exist anymore:
-    for(i=0;i&lt;array_height_2d(Variables)-1;i++){
-        if !variable_instance_exists(Instance_to_track,Variables[i,0]){
-            //Flush the values:
-            Variables[i,0] = "";
-            Variables[i,1] = "";
-            VariablesName[i] = "";
-            VariablesValue[i] = "";
-            }
-        }
-        
-    //Second step: Remove empty intermediate spaces:
-    for(i=1;i&lt;array_height_2d(Variables)-1;i++){
-        for(j=0;j&gt;-1;j++){
-            if (Variables[i-j,0] != "") &amp;&amp; (Variables[i-1-j,0] = ""){
-                //Transfer the variable name 
-                Variables[i-1-j,0] = Variables[i-j,0];
-                VariablesName[i-j-1] = VariablesName[i-j];
-                //Flush the rest, will be updated.
-                Variables[i-j,0] = "";
-                Variables[i-j,1] = "";
-                VariablesName[i-j] = "";
-                VariablesValue[i-j] = "";
+    switch(STATE){
+    
+        case "WATCH":
+            //First step: Flush variables that don't exist anymore:
+            for(i=0;i&lt;array_height_2d(Variables)-1;i++){
+                if !variable_instance_exists(Instance_to_track,Variables[i,0]){
+                    //Flush the values:
+                    Variables[i,0] = "";
+                    Variables[i,1] = "";
+                    VariablesName[i] = "";
+                    VariablesValue[i] = "";
+                    }
+                }
+                
+            //Second step: Remove empty intermediate spaces:
+            for(i=1;i&lt;array_height_2d(Variables)-1;i++){
+                for(j=0;j&gt;-1;j++){
+                    if (Variables[i-j,0] != "") &amp;&amp; (Variables[i-1-j,0] = ""){
+                        //Transfer the variable name 
+                        Variables[i-1-j,0] = Variables[i-j,0];
+                        VariablesName[i-j-1] = VariablesName[i-j];
+                        //Flush the rest, will be updated.
+                        Variables[i-j,0] = "";
+                        Variables[i-j,1] = "";
+                        VariablesName[i-j] = "";
+                        VariablesValue[i-j] = "";
+                        
+                        }
+                    else{
+                        break;
+                        i+=j; //Jump through the void created by the for loop.
+                        }
+                    }
                 
                 }
-            else{
+                
+            //Step 3: Update existing variables
+            for(i=0;i&lt;array_height_2d(Variables);i++){
+                if Variables[i,0] != ""{
+                    //Just check if there is the converted name.
+                    if VariablesName[i] = ""{
+                        VariablesName[i] = __spse_text_converter_to_sprite_index(Variables[i,0]); //Should be removed later once everything is set. This event should occur only when adding a variable.
+                        }
+                    if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
+                        Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
+                        VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
+                        }
+                    }
+                else{
+                    break;
+                    }
+                }
                 break;
-                i+=j; //Jump through the void created by the for loop.
-                }
-            }
-        
-        }
-        
-    //Step 3: Update existing variables
-    for(i=0;i&lt;array_height_2d(Variables);i++){
-        if Variables[i,0] != ""{
-            //Just check if there is the converted name.
-            if VariablesName[i] = ""{
-                VariablesName[i] = __spse_text_converter_to_sprite_index(Variables[i,0]); //Should be removed later once everything is set. This event should occur only when adding a variable.
-                }
-            if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
-                Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
-                VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
-                }
-            }
-        else{
-            break;
-            }
-        }
+                
+            
+            case "TRACK":
+                //A special thing with the tracking function is the dynamic creation of a pretty high number of variables
+                //Step One: Flush everything !
+                Index = "";
+                Variables = "";
+                VariablesName = "";
+                VariablesValue = "";
+                
+                //Step 2: Get the value;
+                Index = variable_instance_get_names(Instance_to_track);
+                var tmp = 0;
+                repeat(array_length_1d(Index)){
+                    Variables[tmp,0] =  Index[tmp];
+                    Variables[tmp,1] = variable_instance_get(Instance_to_track,Variables[tmp,0]);
+                    
+                    VariablesName[tmp] = __spse_text_converter_to_sprite_index(Variables[tmp,0]);
+                    if !is_array(Variables[tmp,1]){
+                        VariablesValue[tmp] = __spse_text_converter_to_sprite_index(Variables[tmp,1]);
+                        }
+                    else{
+                        VariablesValue[tmp] = __spse_text_converter_to_sprite_index("ARRAY");
+                        }
+                    
+                    
+                    tmp += 1;
+                    }
+               
+                
+                break;
+            
+        } //End of the switch statement;
         
     }
 else{
