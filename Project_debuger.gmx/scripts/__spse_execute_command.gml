@@ -42,7 +42,7 @@ while(string_char_at(String,1) = " "){String = string_delete(String,1,1);} //Rem
     //Okay now we have all, lets find the script !
     Script = asset_get_index("console_"+Command);
     if Script != -1{
-        __spse_logs_update('Executing '+ Command ,"white"); //Debug
+        __spse_logs_update('Executing '+ Command ,"purple"); //Debug
         script_execute(Script,parameters[0],
                                 parameters[1],
                                 parameters[2],

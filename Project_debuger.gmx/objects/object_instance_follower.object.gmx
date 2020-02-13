@@ -31,6 +31,7 @@ Instance_string_name = ""; //Unconverted: used for checks
 Instance_name = ""; //Converted
 
 STATE = "WATCH";
+Extended = true;
 
 
 //Serves as pre-allocation of memory.
@@ -369,7 +370,7 @@ if focus{
 
 //Set drawing conditions:
 shader_reset();
-draw_set_alpha(0.4);
+draw_set_alpha(1);
 if (hover){
     if (focus) &amp;&amp; device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
         draw_set_colour(c_red);
@@ -379,35 +380,39 @@ if (hover){
         }
     }
 else{
-    draw_set_color(c_white);
+    draw_set_color(object_main_console.Body_color_light);
     }
 
-draw_roundrect(box_left,box_top,box_right,box_bottom,false);
+draw_roundrect_ext(box_left,box_top,box_right,box_bottom,5,5,false);
+
 
 
 //Variables:
-for(i=0;i&lt;array_height_2d(Variables);i++){
-    if Variables[i,0] != ""{
-        draw_roundrect(xx - ((__spse_string_size(Variables[i,0])/2)+(__spse_string_size(string(Variables[i,1]))/2)), yy + ((i+1)*10) -5, xx + (__spse_string_size(Variables[i,0])/2) +(__spse_string_size(string(Variables[i,1]))/2),yy + ((i+1)*10) +5,false);
+if Extended{
+    for(i=0;i&lt;array_height_2d(Variables);i++){
+        if Variables[i,0] != ""{
+            draw_roundrect_ext(box_left,yy + (i+1)*12 - 6, xx + __spse_string_size(Variables[i,0])+__spse_string_size(VariablesValue[i]), yy + (i+1)*12 + 6, 5,5,false);
+            } 
         }
     }
 
-draw_set_alpha(1);
 
 
-//Time to restore:
-if (hover){ //This test avoids breakling the draw pipeline if the color is already the one we want.
-    draw_set_color(c_white);
-    }
+draw_set_color(c_white);
 
 //Some text:
 __spse_draw_text_sprite_font(box_left+6,yy,Instance_name);
 
-//Time for variables to shine !
-for(i=0;i&lt;array_height_2d(Variables);i++){
-    if Variables[i,0] != ""{
-        __spse_draw_text_sprite_font(xx - __spse_string_size(VariablesName[i])/2, yy + ((i+1)*10), VariablesName[i]);
-        __spse_draw_text_sprite_font(xx + 20 + __spse_string_size(VariablesValue[i])/2, yy + ((i+1)*10), VariablesValue[i]);
+if Extended{
+    //Time for variables to shine !
+    for(i=0;i&lt;array_height_2d(Variables);i++){
+        if Variables[i,0] != ""{
+            __spse_draw_text_sprite_font(xx - (__spse_string_size(Variables[i,0])+__spse_string_size(VariablesValue[i]))/2, yy + ((i+1)*12), VariablesName[i]);
+            __spse_draw_text_sprite_font(xx + (__spse_string_size(Variables[i,0])/2) + 4, yy + ((i+1)*12), VariablesValue[i]);
+            }
+        else{
+            break; //We don't have more variables to look at.
+            }
         }
     }
 
