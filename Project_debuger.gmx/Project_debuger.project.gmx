@@ -34,6 +34,7 @@
         <script>scripts\__spse_is_scope_global.gml</script>
         <script>scripts\__spse_typeof.gml</script>
         <script>scripts\__spse_transform_argument_type.gml</script>
+        <script>scripts\__spse_switch_extended_state.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_init.gml</script>
@@ -44,10 +45,10 @@
           <script>scripts\console_show_debug.gml</script>
         </scripts>
         <scripts name="settings">
-          <script>scripts\console_set_overlay_drawing.gml</script>
-          <script>scripts\console_set_followers_persistence.gml</script>
-          <script>scripts\console_set_debug_instance_visible.gml</script>
-          <script>scripts\console_set_all_instance_visible.gml</script>
+          <script>scripts\console_overlay_drawing.gml</script>
+          <script>scripts\console_followers_persistence.gml</script>
+          <script>scripts\console_debug_instance_visible.gml</script>
+          <script>scripts\console_all_instance_visible.gml</script>
         </scripts>
         <script>scripts\console_count.gml</script>
         <script>scripts\console_create.gml</script>

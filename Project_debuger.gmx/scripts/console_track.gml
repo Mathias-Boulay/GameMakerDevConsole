@@ -38,7 +38,7 @@ if Scope{
                 This_instance_follower = instance_create(0,0,object_instance_follower);
                 
                 This_instance_follower.Instance_to_track = id;
-                This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(StringObject);
+                This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(StringObject+"!");
                 This_instance_follower.Instance_string_name = StringObject;
                 
                 This_instance_follower.STATE = "TRACK";

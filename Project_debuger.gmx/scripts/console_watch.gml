@@ -36,7 +36,7 @@ with(object_instance_follower){ //We add the variable if not already there
                 else{
                     if Variables[u,0] = ""{ //Si une place est libre !
                         Variables[u,0] = Variable_to_watch
-                        VariablesName[u] = __spse_text_converter_to_sprite_index(Variable_to_watch);
+                        VariablesName[u] = __spse_text_converter_to_sprite_index(Variable_to_watch+":");
                         break;
                         }
                     }
@@ -44,7 +44,7 @@ with(object_instance_follower){ //We add the variable if not already there
             //We just check if we have found a place:
             if u = array_height_2d(Variables){
                 Variables[u,0] = Variable_to_watch;
-                VariablesName[u] = __spse_text_converter_to_sprite_index(Variable_to_watch);
+                VariablesName[u] = __spse_text_converter_to_sprite_index(Variable_to_watch+":");
                 }
                 
             }
@@ -71,11 +71,11 @@ if Scope{
                     This_instance_follower = instance_create(0,0,object_instance_follower);
                     
                     This_instance_follower.Instance_to_track = id;
-                    This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(Tracked_object);
+                    This_instance_follower.Instance_name = __spse_text_converter_to_sprite_index(Tracked_object+"!");
                     This_instance_follower.Instance_string_name = Tracked_object;
                     
                     This_instance_follower.Variables[0,0] = Variable_to_watch;
-                    This_instance_follower.VariablesName[0] = __spse_text_converter_to_sprite_index(Variable_to_watch);
+                    This_instance_follower.VariablesName[0] = __spse_text_converter_to_sprite_index(Variable_to_watch+":");
                 }
             }
         

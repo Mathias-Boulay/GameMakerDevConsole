@@ -1,4 +1,4 @@
-///console_set_all_instance_visible(Boolean);
+///console_all_instance_visible(Boolean);
 /*This function set the visibility state of all instances. Can cause bugs !*/
 
 with(object_main_console){

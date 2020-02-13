@@ -1,4 +1,4 @@
-///console_set_debug_instance_visible(Boolean);
+///console_debug_instance_visible(Boolean);
 /*This function set the visibility state of the debug instance. Can cause bugs !*/
 with(object_main_console){
     

@@ -1,4 +1,4 @@
-///console_set_overlay_drawing(Boolean);
+///console_overlay_drawing(Boolean);
 //This script set the state of the overlay you can see on debuged instances:
 with(object_main_console){
     

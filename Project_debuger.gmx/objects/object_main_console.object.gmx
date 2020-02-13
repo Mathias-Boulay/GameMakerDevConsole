@@ -68,17 +68,17 @@ blink_position = 1;
 
 
 //Color coded data types:
-RealColor = c_white;
-StringColor = c_white;
-ArrayColor = c_white;
-Int32Color = c_white;
-Int64Color = c_white;
-PointerColor = c_white;
-UndefinedColor = c_white;
-NullColor = c_white;
-Vec3Color = c_white;
-Vec4Color = c_white;
-UnknownColor = c_white;
+RealColor = c_black;
+StringColor = c_red;
+ArrayColor = c_black;
+Int32Color = c_black;
+Int64Color = c_black;
+PointerColor = c_black;
+UndefinedColor = c_black;
+NullColor = c_black;
+Vec3Color = c_black;
+Vec4Color = c_black;
+UnknownColor = c_black;
 
 
 
@@ -252,7 +252,7 @@ if (mouse_collision != noone){
         //On va traquer cette instance:
         var This_object = instance_create(0,0,object_instance_follower);    
         This_object.Instance_to_track = mouse_collision;  //This is the instance specific ID
-        This_object.Instance_name = __spse_text_converter_to_sprite_index(object_get_name(mouse_collision.object_index));
+        This_object.Instance_name = __spse_text_converter_to_sprite_index(object_get_name(mouse_collision.object_index)+"!");
         This_object.Instance_string_name = object_get_name(mouse_collision.object_index);
         }
     

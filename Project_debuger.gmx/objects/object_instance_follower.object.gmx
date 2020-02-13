@@ -49,6 +49,9 @@ yy = device_mouse_y_to_gui(0);
 mx = 0;
 my = 0;
 
+xfocus = 0;
+xfocus = 0;
+
 hover = false;
 focus = false;
 
@@ -88,6 +91,8 @@ if device_mouse_x_to_gui(0) &gt; box_left &amp;&amp; device_mouse_x_to_gui(0) &l
         focus = true;
         mx = device_mouse_x_to_gui(0) - xx;
         my = device_mouse_y_to_gui(0) - yy;
+        xfocus = xx;
+        yfocus = yy;
         }
     }
 else{
@@ -111,10 +116,13 @@ if (focus){
     
     
 //bounding boxes:
-box_left = xx - ((__spse_string_size(Instance_name)/2)+2);
-box_right = xx + ((__spse_string_size(Instance_name)/2)+2);
+//The added char serves to have the correct length:
+box_left = xx - ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
+box_right = xx + ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
 box_top = yy - 7;
 box_bottom = yy + 7;
+
+
 
     
     
@@ -159,10 +167,6 @@ if instance_exists(Instance_to_track){
             //Step 3: Update existing variables
             for(i=0;i&lt;array_height_2d(Variables);i++){
                 if Variables[i,0] != ""{
-                    //Just check if there is the converted name.
-                    if VariablesName[i] = ""{
-                        VariablesName[i] = __spse_text_converter_to_sprite_index(Variables[i,0]); //Should be removed later once everything is set. This event should occur only when adding a variable.
-                        }
                     if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
                         Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
                         VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
@@ -190,7 +194,7 @@ if instance_exists(Instance_to_track){
                     Variables[tmp,0] =  Index[tmp];
                     Variables[tmp,1] = variable_instance_get(Instance_to_track,Variables[tmp,0]);
                     
-                    VariablesName[tmp] = __spse_text_converter_to_sprite_index(Variables[tmp,0]);
+                    VariablesName[tmp] = __spse_text_converter_to_sprite_index(Variables[tmp,0]+":");
                     if !is_array(Variables[tmp,1]){
                         VariablesValue[tmp] = __spse_text_converter_to_sprite_index(Variables[tmp,1]);
                         }
@@ -245,6 +249,11 @@ if focus{
     focus = false;
     mx = 0;
     my = 0;
+    
+    if xfocus = xx &amp;&amp; yfocus = yy{
+        //It means we want to switch the extende state:
+        __spse_switch_extended_state();
+        }
     
     if device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
         //The mouse is within the range of the suppressor:
@@ -370,13 +379,13 @@ if focus{
 
 //Set drawing conditions:
 shader_reset();
-draw_set_alpha(1);
+draw_set_alpha(0.8);
 if (hover){
     if (focus) &amp;&amp; device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
         draw_set_colour(c_red);
         }
     else{
-        draw_set_color(c_lime);
+        draw_set_color(c_green);
         }
     }
 else{
@@ -391,24 +400,25 @@ draw_roundrect_ext(box_left,box_top,box_right,box_bottom,5,5,false);
 if Extended{
     for(i=0;i&lt;array_height_2d(Variables);i++){
         if Variables[i,0] != ""{
-            draw_roundrect_ext(box_left,yy + (i+1)*12 - 6, xx + __spse_string_size(Variables[i,0])+__spse_string_size(VariablesValue[i]), yy + (i+1)*12 + 6, 5,5,false);
+            draw_roundrect_ext(box_left,yy + (i+1)*12 - 6, box_left + __spse_string_size(VariablesName[i])+__spse_string_size(VariablesValue[i]) + 4, yy + (i+1)*12 + 6, 5,5,false);
             } 
         }
     }
 
 
-
+draw_set_alpha(1);
 draw_set_color(c_white);
 
 //Some text:
-__spse_draw_text_sprite_font(box_left+6,yy,Instance_name);
+__spse_draw_text_sprite_font(box_left+6,yy+1,Instance_name);
+
 
 if Extended{
     //Time for variables to shine !
     for(i=0;i&lt;array_height_2d(Variables);i++){
-        if Variables[i,0] != ""{
-            __spse_draw_text_sprite_font(xx - (__spse_string_size(Variables[i,0])+__spse_string_size(VariablesValue[i]))/2, yy + ((i+1)*12), VariablesName[i]);
-            __spse_draw_text_sprite_font(xx + (__spse_string_size(Variables[i,0])/2) + 4, yy + ((i+1)*12), VariablesValue[i]);
+        if VariablesName[i] != ""{
+            __spse_draw_text_sprite_font(box_left+6,yy + (i+1)*12+1, VariablesName[i]);
+            __spse_draw_text_sprite_font(box_left + __spse_string_size(VariablesName[i]) + 10, yy + (i+1)*12 + 1, VariablesValue[i]);
             }
         else{
             break; //We don't have more variables to look at.
@@ -482,7 +492,7 @@ draw_alpha = draw_get_alpha();
 draw_shader = shader_current();
 
 
-draw_set_alpha(0.4);
+draw_set_alpha(1);
 shader_reset();
 if (hover){
     draw_set_color(c_lime);
@@ -499,7 +509,7 @@ if instance_exists(Instance_to_track){
                         Instance_to_track.bbox_top,
                         Instance_to_track.bbox_right,
                         Instance_to_track.bbox_bottom,
-                        false
+                        true
                         );
         }
     }

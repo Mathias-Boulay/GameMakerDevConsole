@@ -1,4 +1,4 @@
-///console_set_followers_persistence(Boolean);
+///console_followers_persistence(Boolean);
 /*This function set the behavior of the instance follower 
 when the instance he followed doesn't exists anymore*/
 
