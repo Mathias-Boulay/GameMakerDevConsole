@@ -31,7 +31,7 @@ Instance_string_name = ""; //Unconverted: used for checks
 Instance_name = ""; //Converted
 
 STATE = "WATCH";
-Extended = true;
+Extended = false;
 
 
 //Serves as pre-allocation of memory.
@@ -59,6 +59,8 @@ box_left = 0;
 box_right = 0;
 box_top = 0;
 box_bottom = 0;
+
+
 
 </string>
           </argument>
@@ -379,7 +381,7 @@ if focus{
 
 //Set drawing conditions:
 shader_reset();
-draw_set_alpha(0.8);
+draw_set_alpha(0.7);
 if (hover){
     if (focus) &amp;&amp; device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
         draw_set_colour(c_red);
@@ -492,7 +494,7 @@ draw_alpha = draw_get_alpha();
 draw_shader = shader_current();
 
 
-draw_set_alpha(1);
+draw_set_alpha(0.3);
 shader_reset();
 if (hover){
     draw_set_color(c_lime);
@@ -509,7 +511,7 @@ if instance_exists(Instance_to_track){
                         Instance_to_track.bbox_top,
                         Instance_to_track.bbox_right,
                         Instance_to_track.bbox_bottom,
-                        true
+                        false
                         );
         }
     }

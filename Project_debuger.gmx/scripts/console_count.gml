@@ -7,7 +7,7 @@ minus any instances related to this console*/
 
 if argument0 = "any" || argument0 = "all"{
     //Count ""all"" instances
-    __spse_logs_update(string(instance_count - instance_number(object_main_console) - instance_number(object_instance_follower)),"white");
+    __spse_logs_update(string(instance_count - instance_number(object_main_console) - instance_number(object_instance_follower))+" instance(s) found.","white");
     return (instance_count - instance_number(object_main_console) - instance_number(object_instance_follower));    
     }
 else{
@@ -16,7 +16,7 @@ else{
     var Object_count;
     if Object != -1{
         Object_count = instance_number(Object);
-        __spse_logs_update(string(Object_count)+" instances found.","white");
+        __spse_logs_update(string(Object_count)+" instance(s) found.","white");
         return Object_count;
         }
     else{

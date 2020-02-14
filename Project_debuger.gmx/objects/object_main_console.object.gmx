@@ -31,8 +31,8 @@ Console_width = display_get_gui_width()-2;
 Console_height = max(display_get_gui_height()/2,min(240,display_get_gui_height()));
 display_set_gui_maximise();
 
-Body_color = make_colour_rgb(30,30,30) // Dark grey;
-Body_color_light = make_color_rgb(50,50,50); //Light grey;
+Body_color = c_black;           //make_colour_rgb(30,30,30) Dark grey;
+Body_color_light = c_black;      //make_color_rgb(50,50,50); Light grey;
 
 draw_colour = "";
 draw_alpha = "";
@@ -289,13 +289,13 @@ if(Interact){   //It means we have to draw the gui
    
     //Set drawing conditions:
     shader_reset();
-    draw_set_alpha(1);
+    draw_set_alpha(0.8);
     draw_set_colour(Body_color);
     
     //Background:
     draw_roundrect_ext(0,0,Console_width,Console_height,5,5,false);
     
-    
+    draw_set_alpha(1);
     //Time to draw the logs !
     var tmp_counter = 0;
     var tmp_position = Console_height-8;
