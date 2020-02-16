@@ -41,7 +41,7 @@ with(object_instance_follower){ //We add the variable if not already there
                         }
                     }
                 }
-            //We just check if we have found a place:
+            //We just check if we haven't found a place:
             if u = array_height_2d(Variables){
                 Variables[u,0] = Variable_to_watch;
                 VariablesName[u] = __spse_text_converter_to_sprite_index(Variable_to_watch+":");

@@ -11,5 +11,5 @@ if Object = -1{
     
 Count = instance_number(Object);
     
-__spse_logs_update("Destroying " + Count + "instance(s) of "+ string(argument0),"red");
+__spse_logs_update("Destroying " + string(Count) + "instance(s) of "+ string(argument0),"red");
 instance_destroy(Object);

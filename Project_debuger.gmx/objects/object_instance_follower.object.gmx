@@ -34,26 +34,25 @@ STATE = "WATCH";
 Extended = false;
 
 
-//Serves as pre-allocation of memory.
-for(i=0;i&lt;10;i++){
-    Variables[i,0] = ""; //Serve for the name
-    Variables[i,1] = ""; //Serve for the value
-    //Converted values:
-    VariablesName[i] = "";
-    VariablesValue[i] = "";
-    }
+
+Variables[0,0] = ""; //Serve for the name
+Variables[0,1] = ""; //Serve for the value
+//Converted values:
+VariablesName[0] = "";
+VariablesValue[0] = "";
+
 //Dynamic position system:
 yy = (instance_number(object_instance_follower)*8) mod display_get_gui_height();
-xx = 15 + ((instance_number(object_instance_follower)*8) div display_get_gui_height())*70;
+xx = 35 + ((instance_number(object_instance_follower)*8) div display_get_gui_height())*70;
 
-//xx = device_mouse_x_to_gui(0);
-//yy = device_mouse_y_to_gui(0);
 
+//Serves to mesure the distance between the instance and the center of the mouse when the instance is focused.
 mx = 0;
 my = 0;
 
+//Serves to check if we are moving with the focused instance.
 xfocus = 0;
-xfocus = 0;
+yfocus = 0;
 
 hover = false;
 focus = false;
@@ -90,18 +89,18 @@ box_bottom = 0;
             <string>///Update variobles, position and bounding boxes
 
 //Mouse sync:
-if device_mouse_x_to_gui(0) &gt; box_left &amp;&amp; device_mouse_x_to_gui(0) &lt; box_right &amp;&amp; device_mouse_y_to_gui(0) &gt; box_top &amp;&amp; device_mouse_y_to_gui(0) &lt; box_bottom{
+if object_main_console.x_mouse &gt; box_left &amp;&amp; object_main_console.x_mouse &lt; box_right &amp;&amp; object_main_console.y_mouse &gt; box_top &amp;&amp; object_main_console.y_mouse &lt; box_bottom{
     hover = true;
     if device_mouse_check_button_pressed(0,mb_left){
         focus = true;
-        mx = device_mouse_x_to_gui(0) - xx;
-        my = device_mouse_y_to_gui(0) - yy;
+        mx = object_main_console.x_mouse - xx;
+        my = object_main_console.y_mouse - yy;
         xfocus = xx;
         yfocus = yy;
         }
     }
 else{
-    if device_mouse_x_to_gui(0) &gt; Instance_to_track.bbox_left &amp;&amp; device_mouse_x_to_gui(0) &lt; Instance_to_track.bbox_right &amp;&amp; device_mouse_y_to_gui(0) &gt; Instance_to_track.bbox_top &amp;&amp; device_mouse_y_to_gui(0) &lt; Instance_to_track.bbox_bottom{
+    if object_main_console.x_mouse &gt; Instance_to_track.bbox_left &amp;&amp; object_main_console.x_mouse &lt; Instance_to_track.bbox_right &amp;&amp; object_main_console.y_mouse &gt; Instance_to_track.bbox_top &amp;&amp; object_main_console.y_mouse &lt; Instance_to_track.bbox_bottom{
         hover = true;
         }
     else{
@@ -112,9 +111,9 @@ else{
 //Follows the mouse cursor 
 if (focus){
     hover = true;
-    xx = -mx + device_mouse_x_to_gui(0);
-    yy = -my + device_mouse_y_to_gui(0);
-    
+    xx = -mx + object_main_console.x_mouse;
+    yy = -my + object_main_console.y_mouse;
+    //Clamp the values to the border of the screen.
     xx = clamp(xx,((__spse_string_size(Instance_name)/2)+2),display_get_gui_width()-((__spse_string_size(Instance_name)/2)+2));
     yy = clamp(yy,7,display_get_gui_height()-7);
     }
@@ -210,8 +209,6 @@ if instance_exists(Instance_to_track){
                     
                     tmp += 1;
                     }
-               
-                
                 break;
             
         } //End of the switch statement;
@@ -260,7 +257,7 @@ if focus{
         __spse_switch_extended_state();
         }
     
-    if device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
+    if object_main_console.x_mouse &gt; (display_get_gui_width()/2) - 15 &amp;&amp; object_main_console.x_mouse &lt; (display_get_gui_width()/2) + 15 &amp;&amp; object_main_console.y_mouse &gt; display_get_gui_height() - 45 &amp;&amp; object_main_console.y_mouse &lt; display_get_gui_height() - 15{
         //The mouse is within the range of the suppressor:
         __spse_tracked_instance_flush(Instance_to_track);
         instance_destroy();
@@ -386,7 +383,7 @@ if focus{
 shader_reset();
 draw_set_alpha(0.7);
 if (hover){
-    if (focus) &amp;&amp; device_mouse_x_to_gui(0) &gt; (display_get_gui_width()/2) - 15 &amp;&amp; device_mouse_x_to_gui(0) &lt; (display_get_gui_width()/2) + 15 &amp;&amp; device_mouse_y_to_gui(0) &gt; display_get_gui_height() - 45 &amp;&amp; device_mouse_y_to_gui(0) &lt; display_get_gui_height() - 15{
+    if (focus) &amp;&amp; object_main_console.x_mouse &gt; (display_get_gui_width()/2) - 15 &amp;&amp; object_main_console.x_mouse &lt; (display_get_gui_width()/2) + 15 &amp;&amp; object_main_console.y_mouse &gt; display_get_gui_height() - 45 &amp;&amp; object_main_console.y_mouse &lt; display_get_gui_height() - 15{
         draw_set_colour(c_red);
         }
     else{

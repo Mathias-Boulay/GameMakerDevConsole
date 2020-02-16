@@ -31,6 +31,9 @@ Console_width = display_get_gui_width()-2;
 Console_height = max(display_get_gui_height()/2,min(240,display_get_gui_height()));
 display_set_gui_maximise();
 
+x_mouse = device_mouse_x_to_gui(0);
+y_mouse = device_mouse_y_to_gui(0);
+
 Body_color = c_black;           //make_colour_rgb(30,30,30) Dark grey;
 Body_color_light = c_black;      //make_color_rgb(50,50,50); Light grey;
 
@@ -127,11 +130,14 @@ alarm[11] = blink_speed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update the gui size, check if there are dead instances:
+            <string>///Update the gui size, check if there are dead instances and get the mouse positions:
 Console_width = display_get_gui_width()-2;
 Console_height = min(floor(display_get_gui_height()/2),min(240,display_get_gui_height()));
 //display_set_gui_maximise();
 
+//update mouse position
+x_mouse = device_mouse_x_to_gui(0);
+y_mouse = device_mouse_y_to_gui(0);
 
 //Check dead instances.
 for(i=0;i&lt;array_length_1d(Tracked_instances);i+=1){
