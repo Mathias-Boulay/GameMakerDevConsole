@@ -3,13 +3,17 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\Develpper_Console</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="Dummy_sprites">
       <sprite>sprites\sprite_red</sprite>
     </sprites>
-    <sprite>sprites\sprite_console_font</sprite>
+    <sprites name="SPSE_console">
+      <sprite>sprites\sprite_console_font</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -64,8 +68,10 @@
       <object>objects\object_dummy_red</object>
       <object>objects\object_dummy_red_2</object>
     </objects>
-    <object>objects\object_main_console</object>
-    <object>objects\object_instance_follower</object>
+    <objects name="SPSE_console">
+      <object>objects\object_main_console</object>
+      <object>objects\object_instance_follower</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room_test</room>
