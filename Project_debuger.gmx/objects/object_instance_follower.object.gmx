@@ -44,7 +44,7 @@ for(i=0;i&lt;10;i++){
     }
 //Dynamic position system:
 yy = (instance_number(object_instance_follower)*8) mod display_get_gui_height();
-xx = 15 + ((instance_number(object_instance_follower)*8) div display_get_gui_height())*30;
+xx = 15 + ((instance_number(object_instance_follower)*8) div display_get_gui_height())*70;
 
 //xx = device_mouse_x_to_gui(0);
 //yy = device_mouse_y_to_gui(0);

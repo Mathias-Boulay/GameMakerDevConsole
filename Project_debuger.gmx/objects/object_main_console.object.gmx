@@ -66,19 +66,14 @@ blink_speed = (room_speed/2);
 alarm[11] = blink_speed;
 blink_position = 1;
 
+//Initialize a big ds_map:
+global.Keys = ds_map_create();
 
-//Color coded data types:
-RealColor = c_black;
-StringColor = c_red;
-ArrayColor = c_black;
-Int32Color = c_black;
-Int64Color = c_black;
-PointerColor = c_black;
-UndefinedColor = c_black;
-NullColor = c_black;
-Vec3Color = c_black;
-Vec4Color = c_black;
-UnknownColor = c_black;
+for(i=1;i&lt;=string_length(Available_keys);i++){
+    global.Keys[? string_char_at(Available_keys,i)] = (i-1);
+    }
+    
+
 
 
 
