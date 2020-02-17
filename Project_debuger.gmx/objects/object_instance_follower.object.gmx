@@ -188,6 +188,7 @@ if instance_exists(Instance_to_track){
                 else{
                     break;
                     }
+                i+=1;
                 }
                 //case break;
                 break;
@@ -196,7 +197,16 @@ if instance_exists(Instance_to_track){
             case "TRACK":
                 //A special thing with the tracking function is the dynamic creation of a pretty high number of variables
                 //Step One: Flush everything !
-                Index = "";
+                if is_array(Variables){
+                    for(i=0;i&lt;array_height_2d(Variables);i++){
+                        for(j=0;j&lt;array_length_2d(Variables,i);j++){
+                            Variables[i,j] = -1;
+                            }
+                        }
+                    }
+                    
+                
+                var Index = "";
                 Variables = "";
                 VariablesName = "";
                 VariablesValue = "";
