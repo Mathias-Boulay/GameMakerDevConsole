@@ -135,8 +135,12 @@ if instance_exists(Instance_to_track){
     switch(STATE){
     
         case "WATCH":
+            var i = 0;
+            var j;
+            var Variables_height = array_height_2d(Variables);
+            
             //First step: Flush variables that don't exist anymore:
-            for(i=0;i&lt;array_height_2d(Variables)-1;i++){
+            repeat(Variables_height){
                 if !variable_instance_exists(Instance_to_track,Variables[i,0]){
                     //Flush the values:
                     Variables[i,0] = "";
@@ -144,10 +148,13 @@ if instance_exists(Instance_to_track){
                     VariablesName[i] = "";
                     VariablesValue[i] = "";
                     }
+                i+=1;
                 }
-                
+            
             //Second step: Remove empty intermediate spaces:
-            for(i=1;i&lt;array_height_2d(Variables)-1;i++){
+            
+            i = 1;
+            repeat(Variables_height-1){
                 for(j=0;j&gt;-1;j++){
                     if (Variables[i-j,0] != "") &amp;&amp; (Variables[i-1-j,0] = ""){
                         //Transfer the variable name 
@@ -161,15 +168,17 @@ if instance_exists(Instance_to_track){
                         
                         }
                     else{
-                        break;
                         i+=j; //Jump through the void created by the for loop.
+                        break;
                         }
                     }
-                
+                i+=1;
                 }
+
                 
             //Step 3: Update existing variables
-            for(i=0;i&lt;array_height_2d(Variables);i++){
+            i = 0;
+            repeat(Variables_height){
                 if Variables[i,0] != ""{
                     if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
                         Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
@@ -180,6 +189,7 @@ if instance_exists(Instance_to_track){
                     break;
                     }
                 }
+                //case break;
                 break;
                 
             
