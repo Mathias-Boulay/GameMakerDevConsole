@@ -137,6 +137,7 @@ if instance_exists(Instance_to_track){
         case "WATCH":
             var i = 0;
             var j;
+            var __tmp_value;
             var Variables_height = array_height_2d(Variables);
             
             //First step: Flush variables that don't exist anymore:
@@ -180,9 +181,12 @@ if instance_exists(Instance_to_track){
             i = 0;
             repeat(Variables_height){
                 if Variables[i,0] != ""{
-                    if !is_array(variable_instance_get(Instance_to_track,Variables[i,0])){
-                        Variables[i,1] = variable_instance_get(Instance_to_track,Variables[i,0]);
-                        VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
+                    __tmp_value = variable_instance_get(Instance_to_track,Variables[i,0]);
+                    if !is_array(__tmp_value){
+                        if __tmp_value != Variables[i,1]{
+                            Variables[i,1] = __tmp_value;
+                            VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
+                            }
                         }
                     }
                 else{

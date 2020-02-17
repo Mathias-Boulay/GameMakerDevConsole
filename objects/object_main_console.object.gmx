@@ -198,7 +198,7 @@ if (mouse_collision != noone){
             //On va traquer cette instance:
             var This_object = instance_create(0,0,object_instance_follower);
             This_object.Instance_to_track = mouse_collision;  //This is the instance specific ID
-            This_object.Instance_name = __spse_text_converter_to_sprite_index(object_get_name(mouse_collision.object_index));
+            This_object.Instance_name = __spse_text_converter_to_sprite_index(object_get_name(mouse_collision.object_index)+"!");
             This_object.Instance_string_name = object_get_name(mouse_collision.object_index);
             break;
             }
