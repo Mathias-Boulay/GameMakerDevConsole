@@ -29,6 +29,7 @@
           <script>scripts\__spse_data_type_to_color.gml</script>
           <script>scripts\__spse_string_to_color.gml</script>
           <script>scripts\__spse_watch_add.gml</script>
+          <script>scripts\__spse_view_update.gml</script>
         </scripts>
         <script>scripts\__spse_commands_history_update.gml</script>
         <script>scripts\__spse_logs_update.gml</script>

@@ -27,12 +27,10 @@
             <kind>1</kind>
             <string>///Initialize many things;
 Interact = false;
-Console_width = display_get_gui_width()-2;
-Console_height = max(display_get_gui_height()/2,min(240,display_get_gui_height()));
-display_set_gui_maximise();
+View = -1;
 
-x_mouse = device_mouse_x_to_gui(0);
-y_mouse = device_mouse_y_to_gui(0);
+__spse_view_update();
+
 
 Body_color = c_black;           //make_colour_rgb(30,30,30) Dark grey;
 Body_color_light = c_black;      //make_color_rgb(50,50,50); Light grey;
@@ -113,6 +111,30 @@ alarm[11] = blink_speed;
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Update size if needed:
+__spse_view_update();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="2">
       <action>
         <libid>1</libid>
@@ -130,14 +152,12 @@ alarm[11] = blink_speed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update the gui size, check if there are dead instances and get the mouse positions:
-Console_width = display_get_gui_width()-2;
-Console_height = min(floor(display_get_gui_height()/2),min(240,display_get_gui_height()));
-//display_set_gui_maximise();
+            <string>///Check if there are dead instances and update positions:
 
-//update mouse position
-x_mouse = device_mouse_x_to_gui(0);
-y_mouse = device_mouse_y_to_gui(0);
+if View != -1{
+    x = view_xview[View];
+    y = view_yview[View];
+    }
 
 //Check dead instances.
 for(i=0;i&lt;array_length_1d(Tracked_instances);i+=1){
@@ -226,7 +246,7 @@ if (mouse_collision != noone){
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="75">
+    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -263,7 +283,7 @@ if(Interact){   //It means we have to draw the gui
     var tmp_counter = 0;
     var tmp_position = Console_height-8;
     repeat(min(floor((Console_height-8)/16),array_height_2d(Logs))){
-        __spse_draw_text_sprite_font_colored(16,tmp_position,ConvertedLogs[tmp_counter],Logs[tmp_counter,1]);
+        __spse_draw_text_sprite_font_colored(x+16,y+tmp_position,ConvertedLogs[tmp_counter],Logs[tmp_counter,1]);
         tmp_position-=16;
         tmp_counter+=1;                                 
         }
@@ -271,9 +291,9 @@ if(Interact){   //It means we have to draw the gui
      
     draw_set_color(c_white);
     //Draw the command text section.
-    __spse_draw_text_sprite_font(32,16, Displayed_text);
+    __spse_draw_text_sprite_font(x+32,y+16, Displayed_text);
     if (blink){
-        draw_line(((blink_position-1)*8)+28,11,((blink_position-1)*8)+28,19);
+        draw_line(x+((blink_position-1)*8)+28,y+11,x+((blink_position-1)*8)+28,y+19);
         }
 
     
