@@ -21,6 +21,8 @@ if View = -1{
     //No view, amarite;
     Console_width = room_width-2;
     Console_height = max(room_height/2,min(240,room_height));
+    x = 0;
+    y = 0;
     }
 else{
     Console_width = view_wview[View]-2;

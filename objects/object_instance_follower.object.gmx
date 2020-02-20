@@ -42,6 +42,14 @@ VariablesName[0] = "";
 VariablesValue[0] = "";
 
 //Dynamic position system:
+if object_main_console.View != -1{
+    yy = object_main_console.y + ((instance_number(object_instance_follower)*16) mod view_hview[View]);
+    xx = object_main_console.x + 70 + 70*((instance_number(object_instance_follower)*16) div view_hview[View]);
+    }
+else{
+    yy = object_main_console.y + ((instance_number(object_instance_follower)*16) mod room_height);
+    xx = object_main_console.x + 70 + 70*((instance_number(object_instance_follower)*16) div room_width);
+    } 
 /*
 yy = (instance_number(object_instance_follower)*8) mod display_get_gui_height();
 xx = 35 + ((instance_number(object_instance_follower)*8) div display_get_gui_height())*70;
@@ -188,10 +196,10 @@ if instance_exists(Instance_to_track){
                 if Variables[i,0] != ""{
                     __tmp_value = variable_instance_get(Instance_to_track,Variables[i,0]);
                     if !is_array(__tmp_value){
-                        if __tmp_value != Variables[i,1]{
+                        //if __tmp_value != Variables[i,1]{
                             Variables[i,1] = __tmp_value;
                             VariablesValue[i] = __spse_text_converter_to_sprite_index(string(Variables[i,1]));
-                            }
+                            //}
                         }
                     }
                 else{
@@ -285,15 +293,12 @@ if focus{
         //It means we want to switch the extende state:
         __spse_switch_extended_state();
         }
-    /*
-    if object_main_console.x_mouse &gt; (display_get_gui_width()/2) - 15 &amp;&amp; object_main_console.x_mouse &lt; (display_get_gui_width()/2) + 15 &amp;&amp; object_main_console.y_mouse &gt; display_get_gui_height() - 45 &amp;&amp; object_main_console.y_mouse &lt; display_get_gui_height() - 15{
-        //The mouse is within the range of the suppressor:
+        
+    //If we have to destroy the tracker:
+    if point_in_rectangle(mouse_x,mouse_y,object_main_console.x+object_main_console.Console_width-31,object_main_console.y,object_main_console.x+object_main_console.Console_width-1,object_main_console.y+30){
         __spse_tracked_instance_flush(Instance_to_track);
         instance_destroy();
-        
         }
-    */
-    
     }
 </string>
           </argument>
@@ -422,13 +427,13 @@ if instance_exists(Instance_to_track){
             <string>///Draw a red rounded rectangle with a cross if you have the focus.
 //Serves to destroy instances.
 if focus{
+    draw_set_alpha(1);
     draw_set_colour(c_red);
-    draw_roundrect(display_get_gui_width()/2-15,display_get_gui_height()-45,display_get_gui_width()/2+15,display_get_gui_height()-15,false);
-    //draw_circle(display_get_gui_width()/2,display_get_gui_height()-30,15,false);
+    draw_roundrect(object_main_console.x+object_main_console.Console_width-31,object_main_console.y,object_main_console.x+object_main_console.Console_width-1,object_main_console.y+30,false);
     
     draw_set_color(c_white);
-    draw_line(display_get_gui_width()/2-10,display_get_gui_height()-40,display_get_gui_width()/2+10,display_get_gui_height()-20);
-    draw_line(display_get_gui_width()/2-10,display_get_gui_height()-20,display_get_gui_width()/2+10,display_get_gui_height()-40);
+    draw_line(object_main_console.x+object_main_console.Console_width-6,object_main_console.y+5,object_main_console.x+object_main_console.Console_width-26,object_main_console.y+25);
+    draw_line(object_main_console.x+object_main_console.Console_width-6,object_main_console.y+25,object_main_console.x+object_main_console.Console_width-26,object_main_console.y+5);
     
     }
 </string>
@@ -460,7 +465,7 @@ if focus{
 shader_reset();
 draw_set_alpha(0.7);
 if (hover){
-    if (focus) &amp;&amp; object_main_console.x_mouse &gt; (display_get_gui_width()/2) - 15 &amp;&amp; object_main_console.x_mouse &lt; (display_get_gui_width()/2) + 15 &amp;&amp; object_main_console.y_mouse &gt; display_get_gui_height() - 45 &amp;&amp; object_main_console.y_mouse &lt; display_get_gui_height() - 15{
+    if (focus) &amp;&amp; point_in_rectangle(mouse_x,mouse_y,object_main_console.x+object_main_console.Console_width-31,object_main_console.y,object_main_console.x+object_main_console.Console_width-1,object_main_console.y+30){
         draw_set_colour(c_red);
         }
     else{
