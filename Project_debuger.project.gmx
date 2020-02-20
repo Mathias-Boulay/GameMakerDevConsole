@@ -5,6 +5,7 @@
   </Configs>
   <NewExtensions>
     <extension index="0">extensions\Develpper_Console</extension>
+    <extension index="1">extensions\Developer_Console_1.5.3</extension>
   </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
