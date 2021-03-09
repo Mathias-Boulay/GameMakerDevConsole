@@ -41,10 +41,10 @@ Variables[0,1] = ""; //Serve for the value
 VariablesName[0] = "";
 VariablesValue[0] = "";
 
-//Dynamic position system:
+//Dynamic position system: has the ability not to stack until a certain point
 if object_main_console.View != -1{
-    yy = object_main_console.y + ((instance_number(object_instance_follower)*16) mod view_hview[View]);
-    xx = object_main_console.x + 70 + 70*((instance_number(object_instance_follower)*16) div view_hview[View]);
+    yy = object_main_console.y + ((instance_number(object_instance_follower)*16) mod view_hview[object_main_console.View]);
+    xx = object_main_console.x + 70 + 70*((instance_number(object_instance_follower)*16) div view_hview[object_main_console.View]);
     }
 else{
     yy = object_main_console.y + ((instance_number(object_instance_follower)*16) mod room_height);
@@ -109,11 +109,13 @@ if point_in_rectangle(mouse_x,mouse_y,box_left,box_top,box_right,box_bottom){
         }
     }
 else{
-    if point_in_rectangle(mouse_x,mouse_y,Instance_to_track.bbox_left,Instance_to_track.bbox_top,Instance_to_track.bbox_right,Instance_to_track.bbox_bottom){
-        hover = true;
-        }
-    else{
-        hover = false;
+    if (instance_exists(Instance_to_track)){
+        if point_in_rectangle(mouse_x,mouse_y,Instance_to_track.bbox_left,Instance_to_track.bbox_top,Instance_to_track.bbox_right,Instance_to_track.bbox_bottom){
+            hover = true;
+            }
+        else{
+            hover = false;
+            }
         }
     }
 
@@ -378,8 +380,6 @@ draw_shader = shader_current();
           <argument>
             <kind>1</kind>
             <string>///Draw the overlay if the option is set to true
-
-
 
 draw_set_alpha(0.3);
 shader_reset();
