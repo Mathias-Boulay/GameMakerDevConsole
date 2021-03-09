@@ -1,9 +1,11 @@
 ///__spse_view_update();
-//This script will just tell to the console if a view is present, and if there is one, wil take the first visible view;
-//It will then reconfigure the console visual parameters to better fit the actual situation.
-//We have to figure out how to size the console since we can't rely on the gui size.
+
+/*This script will just tell to the console if a view is present, and if there is one, will take the first visible view;
+  It will then reconfigure the console visual parameters to better fit the actual situation.
+  We have to figure out how to size the console since we can't rely on the gui size. */
+  
 //MUST BE USED ONLY WITH THE MAIN CONSOLE !
-var __tpm;
+var __tpm = 0;
 
 View = -1;
 __tmp = 0;
