@@ -2,6 +2,9 @@
 //This script will create an instance of the given <object> of the given <x> and <y> position.
 //Optional argument: [number]
 
+//Failsafe
+if(!__spse_failsafe(argument_count, 3, 4)) exit;
+
 //Initialize variables
 var Object;
 var xx;

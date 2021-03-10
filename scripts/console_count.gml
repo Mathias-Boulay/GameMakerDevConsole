@@ -1,12 +1,16 @@
 ///console_count(ObjectToCount);
-//This script will return the number of instances of the given <object>
-/* The special keyword "all" or "any" will return the total number of active instances
-minus any instances related to this console*/
+/*
+  This script will return the number of instances of the given <object>
+  The special keyword "all" or "any" will return the total number of active instances
+  minus any instances related to this console
+  Additionally, it will output a debug log.
+*/
 
-//Additionally, it will output a debug log.
+//Failsafe
+if(!__spse_failsafe(argument_count, 1, 1)) exit;
 
 if argument0 = "any" || argument0 = "all"{
-    //Count ""all"" instances
+    //Count "'all'" instances
     __spse_logs_update(string(instance_count - instance_number(object_main_console) - instance_number(object_instance_follower))+" instance(s) found.","white");
     return (instance_count - instance_number(object_main_console) - instance_number(object_instance_follower));    
     }

@@ -1,11 +1,17 @@
 ///console_set(StringObject,StringVariable,StringValue);
-//This command should be executed from the console only since there is (almost ?) no reason for you do set the variable in the code with this command.
-//Futhermore, this shouldn't be done since the console should be removed from production version of the game, making the game crash if its stavility depends on the console.
 
+/*
+  This command should be executed from the console only since there is
+  (almost ?) no reason for you do set the variable in the code with this command.
+  Futhermore, this shouldn't be done since the console should be removed from
+  production version of the game, making the game crash if its stability
+  depends on the console.
+*/
 
+//Failsafe
+if (!__spse_failsafe(argument_count, 2, 3)) exit;
 
-
-
+    
 //Get the arguments:
 if !__spse_is_scope_global(argument0){
     var Object = argument[0];

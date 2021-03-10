@@ -1,6 +1,9 @@
 ///console_kill(StringObject)
 //This script will destroy every active instances of the given <object>
 
+//Failsafe
+if(!__spse_failsafe(argument_count, 1, 1)) exit;
+
 var Object = asset_get_index(argument0);
 var Count;
 

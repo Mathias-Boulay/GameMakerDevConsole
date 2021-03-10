@@ -1,5 +1,9 @@
 ///console_track([Stringscope],StringObject);
 //This script will tell the concerned instances follower to track their tracked instance.
+
+//Failsafe
+if(!__spse_failsafe(argument_count, 3, 4)) exit;
+
 var Scope = __spse_is_scope_global(argument0);
 var StringObject;
 

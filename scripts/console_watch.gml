@@ -1,6 +1,8 @@
 ///Console_watch(StringObject,StringVariable);
 //This script will add the given <variable> to the tracking list of each instance followers tracking down the given <object>
 
+//Failsafe
+if(!__spse_failsafe(argument_count, 2, 3)) exit;
 
 var Scope = __spse_is_scope_global(argument0);
 var Tracked_object;
