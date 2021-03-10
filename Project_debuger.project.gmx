@@ -41,6 +41,8 @@
         <script>scripts\__spse_typeof.gml</script>
         <script>scripts\__spse_transform_argument_type.gml</script>
         <script>scripts\__spse_switch_extended_state.gml</script>
+        <script>scripts\__spse_calling_instance.gml</script>
+        <script>scripts\__spse_failsafe.gml</script>
       </scripts>
       <scripts name="User">
         <script>scripts\console_init.gml</script>
