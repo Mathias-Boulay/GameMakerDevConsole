@@ -478,7 +478,7 @@ else{
     draw_set_color(object_main_console.Body_color_light);
     }
 
-draw_roundrect_ext(box_left,box_top,box_right,box_bottom,5,5,false);
+draw_rectangle(box_left,box_top,box_right,box_bottom,false);
 
 
 
@@ -486,7 +486,7 @@ draw_roundrect_ext(box_left,box_top,box_right,box_bottom,5,5,false);
 if Extended{
     for(i=0;i&lt;array_height_2d(Variables);i++){
         if Variables[i,0] != ""{
-            draw_roundrect_ext(box_left,yy + (i+1)*12 - 6, box_left + __spse_string_size(VariablesName[i])+__spse_string_size(VariablesValue[i]) + 4, yy + (i+1)*12 + 6, 5,5,false);
+            draw_rectangle(box_left,yy + (i+1)*12 - 6, box_left + __spse_string_size(VariablesName[i])+__spse_string_size(VariablesValue[i]) + 4, yy + (i+1)*12 + 6,false);           
             } 
         }
     }
