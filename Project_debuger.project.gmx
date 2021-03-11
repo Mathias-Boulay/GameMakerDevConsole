@@ -58,12 +58,14 @@
           <script>scripts\console_debug_instance_visible.gml</script>
           <script>scripts\console_all_instance_visible.gml</script>
         </scripts>
-        <script>scripts\console_count.gml</script>
-        <script>scripts\console_create.gml</script>
-        <script>scripts\console_kill.gml</script>
-        <script>scripts\console_watch.gml</script>
-        <script>scripts\console_set.gml</script>
-        <script>scripts\console_track.gml</script>
+        <scripts name="commands">
+          <script>scripts\console_count.gml</script>
+          <script>scripts\console_create.gml</script>
+          <script>scripts\console_kill.gml</script>
+          <script>scripts\console_watch.gml</script>
+          <script>scripts\console_set.gml</script>
+          <script>scripts\console_track.gml</script>
+        </scripts>
       </scripts>
     </scripts>
   </scripts>

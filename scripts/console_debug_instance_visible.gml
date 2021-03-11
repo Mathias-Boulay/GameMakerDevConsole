@@ -25,3 +25,6 @@ else{
         __spse_logs_update("Failed to change the visibility state of debug instances.","red");
         }
     }
+    
+//Give some feedback
+__spse_logs_update("tracked instance visibility set to: " + string(Force_debug_instances_visible), "white");

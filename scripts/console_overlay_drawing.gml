@@ -25,7 +25,9 @@ else{
         __spse_logs_update("Failed to change overlay drawing state","red");
         }
     }
-        
+    
+//Give some feedback
+__spse_logs_update("Drawing overlay state set to: " + string(Overlay_drawing), "white"); 
     
 
 

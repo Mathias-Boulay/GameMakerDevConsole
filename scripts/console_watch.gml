@@ -84,6 +84,9 @@ if Scope{
         }
     
     }
+    
+//Give some feedback
+__spse_logs_update("Started watching " + Variable_to_watch + " from " + Tracked_object, "white");
 
 
 

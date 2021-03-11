@@ -26,6 +26,8 @@ else{
         __spse_logs_update("Failed to change the behavior of instances followers.","red");
         }
     }
-        
+    
+//Give some feedback
+__spse_logs_update("Auto destroy state set to: " + string(Auto_destroy_instance_follower), "white");    
     
 

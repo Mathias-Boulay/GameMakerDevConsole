@@ -41,5 +41,8 @@ repeat(Number){
     instance_create(xx,yy,Object);
     }
     
+//Give some feedback
+__spse_logs_update("Created " + string(Number) + "instance(s) of " + argument0, "white");
+    
 
 

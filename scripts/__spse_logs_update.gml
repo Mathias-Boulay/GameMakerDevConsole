@@ -19,3 +19,6 @@ with(object_main_console){
     
     }
 
+//Duplicate the log on the compiler window
+show_debug_message(string_upper(string(argument1)) + " : " + string(argument0));
+

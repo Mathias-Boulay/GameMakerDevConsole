@@ -25,5 +25,8 @@ else{
         __spse_logs_update("Failed to change the visibility state of all instances.","red");
         }
     }
+    
+//Give some feedback
+__spse_logs_update("global instance visibility set to: " + string(Force_all_instances_visible), "white");
         
     
