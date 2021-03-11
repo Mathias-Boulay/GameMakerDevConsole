@@ -131,15 +131,17 @@ if (focus){
         xx = clamp(xx,((__spse_string_size(Instance_name)/2)+2),view_wview[object_main_console.View]-((__spse_string_size(Instance_name)/2)+2));
         yy = clamp(yy,7,view_hview[object_main_console.View]-7);
         }
+        
+    //Update bounding boxes since we can be moved:
+    //The added char serves to have the correct length:
+    box_left = xx - ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
+    box_right = xx + ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
+    box_top = yy - 7;
+    box_bottom = yy + 7;
     }
     
     
-//bounding boxes:
-//The added char serves to have the correct length:
-box_left = xx - ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
-box_right = xx + ((__spse_string_size(Instance_string_name+"&gt;")/2)+2);
-box_top = yy - 7;
-box_bottom = yy + 7;
+
 
 
 

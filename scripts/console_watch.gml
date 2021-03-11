@@ -78,6 +78,13 @@ if Scope{
                     
                     This_instance_follower.Variables[0,0] = Variable_to_watch;
                     This_instance_follower.VariablesName[0] = __spse_text_converter_to_sprite_index(Variable_to_watch+":");
+                    
+                    //Initialize bounding boxes
+                    //The added char serves to have the correct length:
+                    This_instance_follower.box_left = This_instance_follower.xx - ((__spse_string_size(This_instance_follower.Instance_string_name+">")/2)+2);
+                    This_instance_follower.box_right = This_instance_follower.xx + ((__spse_string_size(This_instance_follower.Instance_string_name+">")/2)+2);
+                    This_instance_follower.box_top = This_instance_follower.yy - 7;
+                    This_instance_follower.box_bottom = This_instance_follower.yy + 7;
                 }
             }
         

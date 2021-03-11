@@ -8,7 +8,7 @@ var Scope = __spse_is_scope_global(argument0);
 var StringObject;
 
 if Scope{
-    StringObject = argument[1];
+    StringObject = argument1;
     }
 else{   
     StringObject = argument0;
@@ -46,6 +46,14 @@ if Scope{
                 This_instance_follower.Instance_string_name = StringObject;
                 
                 This_instance_follower.STATE = "TRACK";
+                
+                //Initialize bounding boxes
+                //The added char serves to have the correct length:
+                This_instance_follower.box_left = This_instance_follower.xx - ((__spse_string_size(This_instance_follower.Instance_string_name+">")/2)+2);
+                This_instance_follower.box_right = This_instance_follower.xx + ((__spse_string_size(This_instance_follower.Instance_string_name+">")/2)+2);
+                This_instance_follower.box_top = This_instance_follower.yy - 7;
+                This_instance_follower.box_bottom = This_instance_follower.yy + 7;
+                
                 }
             }
         }
