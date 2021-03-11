@@ -263,15 +263,36 @@ if (mouse_collision != noone){
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///Backup drawing settings to restore them.
+draw_color = draw_get_colour();
+draw_alpha = draw_get_alpha();
+draw_shader = shader_current();
+
+shader_reset();
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///Draw the main window GUI if the user wants so.
 if(Interact){   //It means we have to draw the gui
-    //Backup drawing settings to restore them.
-    draw_color = draw_get_colour();
-    draw_alpha = draw_get_alpha();
-    draw_shader = shader_current();
    
     //Set drawing conditions:
-    shader_reset();
     draw_set_alpha(0.8);
     draw_set_colour(Body_color);
     
@@ -295,18 +316,148 @@ if(Interact){   //It means we have to draw the gui
     if (blink){
         draw_line(x+((blink_position-1)*8)+28,y+11,x+((blink_position-1)*8)+28,y+19);
         }
-
-    
-                        
-    
-    
-    
-    //Reset to the usual state:
-    draw_set_color(draw_color);
-    shader_set(draw_shader);
-    draw_set_alpha(draw_alpha);
     
     }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw the instance followers
+
+
+if (Overlay_drawing){
+    draw_set_alpha(0.3); //For the overlay
+    with(object_instance_follower){
+        // PHASE 1 -- OVERLAY
+        //Draw the overlay if the option is set to true
+    
+        if (hover){
+            draw_set_color(c_lime);
+            }
+        else{
+            draw_set_color(c_white);
+            }
+        
+        
+        if instance_exists(Instance_to_track){
+            draw_rectangle(
+                            Instance_to_track.bbox_left,
+                            Instance_to_track.bbox_top,
+                            Instance_to_track.bbox_right,
+                            Instance_to_track.bbox_bottom,
+                            false
+                            );
+                
+            }
+        }
+    } // Overlay drawing end
+
+//Phase 2 -- TRASH ICON
+with(object_instance_follower){
+    ///Draw a red rounded rectangle with a cross if you have the focus.
+    //Serves to destroy instances.
+    if focus{
+        draw_set_alpha(1);
+        draw_set_colour(c_red);
+        draw_roundrect(object_main_console.x+object_main_console.Console_width-31,object_main_console.y,object_main_console.x+object_main_console.Console_width-1,object_main_console.y+30,false);
+        
+        draw_set_color(c_white);
+        draw_line(object_main_console.x+object_main_console.Console_width-6,object_main_console.y+5,object_main_console.x+object_main_console.Console_width-26,object_main_console.y+25);
+        draw_line(object_main_console.x+object_main_console.Console_width-6,object_main_console.y+25,object_main_console.x+object_main_console.Console_width-26,object_main_console.y+5);
+        
+        }
+    }
+    
+//Phase 3 -- BACKGROUND RECTANGLES
+draw_set_alpha(0.7);
+with(object_instance_follower){
+    if (hover){
+        if (focus) &amp;&amp; point_in_rectangle(mouse_x,mouse_y,object_main_console.x+object_main_console.Console_width-31,object_main_console.y,object_main_console.x+object_main_console.Console_width-1,object_main_console.y+30){
+            draw_set_colour(c_red);
+            }
+        else{
+            draw_set_color(c_green);
+            }
+        }
+    else{
+        draw_set_color(object_main_console.Body_color_light);
+        }
+    
+    draw_rectangle(box_left,box_top,box_right,box_bottom,false);
+    }
+    
+with(object_instance_follower){
+    if Extended{
+        for(i=0;i&lt;array_height_2d(Variables);i++){
+            if Variables[i,0] != ""{
+                draw_rectangle(box_left,yy + (i+1)*12 - 6, box_left + __spse_string_size(VariablesName[i])+__spse_string_size(VariablesValue[i]) + 4, yy + (i+1)*12 + 6,false);           
+                } 
+            }
+        }
+    }
+    
+draw_set_alpha(1);
+draw_set_color(c_white); 
+
+with(object_instance_follower){
+    //Some text:
+    __spse_draw_text_sprite_font(box_left+6,yy+1,Instance_name);
+    
+    if Extended{
+        //Time for variables to shine !
+        for(i=0;i&lt;array_height_2d(Variables);i++){
+            if VariablesName[i] != ""{
+                __spse_draw_text_sprite_font(box_left+6,yy + (i+1)*12+1, VariablesName[i]);
+                __spse_draw_text_sprite_font(box_left + __spse_string_size(VariablesName[i]) + 10, yy + (i+1)*12 + 1, VariablesValue[i]);
+                }
+            else{
+                break; //We don't have more variables to look at.
+                }
+            }
+        }
+    }
+    
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Reset to the usual state:
+draw_set_color(draw_color);
+shader_set(draw_shader);
+draw_set_alpha(draw_alpha);
 </string>
           </argument>
         </arguments>
