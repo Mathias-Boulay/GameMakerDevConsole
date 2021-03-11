@@ -40,37 +40,46 @@ All console commands are actually scripts starting with "console_" under the res
 
 
 ### Settings
-`overlay_drawing [bool]`
+- `overlay_drawing [bool]`
+
 Set the visibility state of the overlay drawn of top of debugged object sprites.
 
-`followers_persistence [bool]`
+- `followers_persistence [bool]`
+
 Set whether or not the tracker stays after the object death, allowing to check its last state.
 
-`debug_instance_visible [bool]`
+- `debug_instance_visible [bool]`
+
 Set whether or not debugged instances should be forced visible.
 
-`all_instance_visible [bool]`
+- `all_instance_visible [bool]`
+
 Set whether or not **all** instances should be forced visible.
 Overrides `debug_instance_visible`.
 
 ### Others
-`count [all/object_name]`
+- `count [all/object_name]`
+
 Return the number of active instances from a specified `object_name`
 The keyword `all` will return how many instances are active.
 Instances related to debugging are **filtered out**.
 
-`create [X] [Y] [object_name] <Number>`
+- `create [X] [Y] [object_name] <Number>`
+
 Create an instance of `object_name` at the specified position.
 The optional argument `Number` allows to create many instances at once.
 
-`kill [object_name]`
+- `kill [object_name]`
+
 Kill all instances of the specified `object_name`.
 
-`watch <all> [object_name] [variable_name]`
+- `watch <all> [object_name] [variable_name]`
+
 Start watching the specified `variable_name` of all debugged instances of `object_name`.
 If the optional `all` keyword is used, a tracker watching the `variable_name` is created for each instance of `object_name` that wasn't debugged so far.
 
-`track <all> [object_name]`
+- `track <all> [object_name]`
+
 Start **tracking** all debugged instance of `object_name`
 If the optional `all` keyword is used, a tracker **tracking** the `object_name` is created for each instance of `object_name` that wasn't debugged so far.
 
@@ -78,7 +87,8 @@ If the optional `all` keyword is used, a tracker **tracking** the `object_name` 
 Tracking is equivalent to watch **ALL** variables of the instance.
 While it allows to see new variables being added, it is WAY MORE EXPENSIVE than simply watching a pre-defined set of variables.
 
-`set <all> [object_name] [variable_name] [variable_value]`
+- `set <all> [object_name] [variable_name] [variable_value]`
+
 Set the specified `variable_name` of all debugged instances of `object_name` to the specified `variable_value`.
 Can be a real, boolean or a string.
 The optional keyword `all` can be used set the value to **all** instances of `object_name`.
